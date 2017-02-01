@@ -162,8 +162,8 @@ class Outils:
         return chaine;
         
         
-    def recupereBaliseAuto(chaine, baliseOuvrante, nbOuvrante, baliseFermante, crochet):
-        
+    def recupereBaliseAuto(chaine, baliseOuvrante, nbOuvrante, baliseFermante, crochet = False):
+        # NbOuvrante commence à 1
         crochetOuvrant = "<";
         crochetFermant = ">";
         if (crochet): 

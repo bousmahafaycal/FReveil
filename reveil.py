@@ -9,18 +9,7 @@ class Reveil:
 		# Dans la config, on met l'endroit ou les modules sont stockés, le nom de tous les modules, l'endroit ou les réveils sont stockés (chaque type)
 		pass
 
-	def saveConfig(self):
-		# Fonction permettant de sauvegarder la config
-		# On sauvegarde tout dans le fichier de configuration.
-		pass
-
-	def addModule(self, nomFonction, adresseDossier, adresseFichier):
-		# Ca va importer le mdossier du module dans le dossier Module, ajouté la disponibilité du module dans la configuration.
-		pass
-
-	def delModule(self):
-		# Ca enleve un module, l'enleve des fichiers de config.
-		pass
+	
 
 	
 
