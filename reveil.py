@@ -1,3 +1,5 @@
+from config import *
+
 class Reveil:
 	def boucleInfinie(self):
 		# Fonction permettant de lancer la boucle infinie du réveil.
@@ -10,8 +12,9 @@ class Reveil:
 		pass
 
 	
-
-	
+	def initialisation (self):
+		# Créer la structure de dossiers
+		pass
 
 
 

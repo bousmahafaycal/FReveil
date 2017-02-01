@@ -16,6 +16,8 @@ Fonctions dispos :
     
 """
 
+from shutil import copytree, ignore_patterns, rmtree
+
 class Outils:
     
     # Fonction qui renvoie le max d'un tab à double dimension dans la colonne donnée
@@ -206,6 +208,16 @@ class Outils:
     # Fonction permettant de compter le nombre d'occurences dans une chaine de caracteres.   
     def compter(chaine, recherche):
         return chaine.count(recherche);
+
+
+    # Fonction qui supprime un dossier ainsi que tout son contenu
+    def supprimeDossier(path):
+        rmtree(path)
+
+
+    # Fonction permettant de copier un dossier à un autre endroit
+    def copieDossier (cible, destination):
+        copytree(cible, destination)
         
     # Fonction permettant de lire le contenu d'un fichier.
     def lireFichier(endroit_fichier): # Fonction qui renvoie le contenu du fichier en chaine de caractere

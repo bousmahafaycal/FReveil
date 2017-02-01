@@ -24,7 +24,7 @@ class Config:
 		liste.append(nom)
 		liste.append(Dossier)
 		self.listeModule.append(liste)
-		Outils.copieDossier(pathModule, self.endroitModule+Dossier) # FONCTION A FAIRE : transferer le dossier pathModule dans le bon dossier.
+		Outils.copieDossier(pathModule, self.endroitModule+Dossier)
 		self.save()
 
 
@@ -44,7 +44,7 @@ class Config:
 
 	def delModule (self,nb):
 		# Supprime un module à partir de son numéro
-		Outils.supprimeDossier(self.endroitModule+self.listeModule[nb][1]) # FONCTION A FAIRE
+		Outils.supprimeDossier(self.endroitModule+self.listeModule[nb][1]) 
 		del(self.listeModule[nb])
 		self.save()
 		# LOG A FAIRE
