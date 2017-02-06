@@ -15,7 +15,7 @@ Fonctions dispos :
     - constitueBalise(nom,balise)
     
 """
-
+import os
 from shutil import copytree, ignore_patterns, rmtree
 
 class Outils:
@@ -164,7 +164,9 @@ class Outils:
         return chaine;
         
         
-    def recupereBaliseAuto(chaine, baliseOuvrante, nbOuvrante, baliseFermante, crochet = False):
+    def recupereBaliseAuto(chaine, baliseOuvrante, nbOuvrante, baliseFermante = "", crochet = False):
+        if baliseFermante == "":
+            baliseFermante = baliseOuvrante
         # NbOuvrante commence à 1
         crochetOuvrant = "<";
         crochetFermant = ">";
@@ -202,7 +204,7 @@ class Outils:
         return chaine
 
 
-
+   
 
         
     # Fonction permettant de compter le nombre d'occurences dans une chaine de caracteres.   
@@ -214,6 +216,10 @@ class Outils:
     def supprimeDossier(path):
         rmtree(path)
 
+    # Fonction créeant les dossier si ceux ci n'existent pas
+    def creeDossier(path):
+        if (not Outils.testPresenceRep(path)):
+            os.makedirs(path)
 
     # Fonction permettant de copier un dossier à un autre endroit
     def copieDossier (cible, destination):
@@ -246,8 +252,57 @@ class Outils:
             return 0
 
     # Fonction qui test la présence d'un répertoire
-    def testPresenceRep(endroit):
+    def testPresenceRep(path):
         return os.path.isdir(path)
+
+
+    def intInput(chaine=""):
+        
+        continuer = True
+        while continuer:
+            #if chaine != "":
+                #print (chaine)
+            a = input(chaine)
+            try:
+                b = int(a)
+                continuer = False
+            except:
+                print()
+                print("Merci de bien vouloir recommencer, un entier est attendu : ")
+
+        return b
+
+
+    def menu(question,liste,barre = True):
+        # Fonction permettant de créer un menu selon une liste  de choix et une question
+        print()
+        if barre:
+            print("----------------------------")
+        continuer = True
+        a = 0
+        while continuer:
+            print(question)
+            for i in range(len(liste)):
+                print(str(i+1)+" : "+liste[i])
+
+            print()
+            print("Merci de bien vouloir rentrer le nombre corrrespondant à votre choix :")
+            a = Outils.intInput("Quel est votre choix ? ")
+
+            if (a > 0 and a <= len(liste)):
+                continuer = False
+            else :
+                print()
+                print("Merci de bien vouloir recommencer !")
+
+        if barre:
+            print("----------------------------")
+        return a-1
+
+
+       
+
+
         
 #print(Outils.compareDeuxMots("afc barcaa","bbbcasfccaa barcelone"));
 #print(Outils.findNb("blabla","a",3,1));
