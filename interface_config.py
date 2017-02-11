@@ -18,7 +18,7 @@ class InterfaceConfig:
 
 
 	def annonce(self):
-		# Annonce pour etre dans le programme
+		# Annonce et crédit du programme
 		print("Bienvenue dans l'interface de configuration du FReveil.")
 		print("Ce programme a été crée par Fayçal Bousmaha.")
 		print()
@@ -57,7 +57,8 @@ class InterfaceConfig:
 		self.lireConfig()
 		print("Voici la liste des modules actuellement disponible : ")
 		for i in range(0,len(self.conf.listeModule)):
-			print(str(i+1)+" - "+self.conf.listeModule[i])
+			print(str(i+1)+" - "+self.conf.listeModule[i][0])
+			print()
 		input("Appuyez sur entrée pour retourner à la gestion des modules.")
 		print()
 		self.menuModule()
@@ -88,7 +89,7 @@ class InterfaceConfig:
 		else :
 			
 			if self.verificationModule(endroit): 
-				self.conf.addModule(self.getNomModule(endroit),endroit)
+				self.conf.addModule(self.getNomModule(endroit),endroit) # ATTENTION : il faut gerer le cas ou le nom du module existe déja
 				print("Le module a été ajouté avec succès")
 				sleep(3)
 
@@ -127,15 +128,19 @@ class InterfaceConfig:
 	def delModule(self):
 		# Supprimer un module
 		print()
-		liste = self.conf.listeModule[:]
-		liste.append(0,"Revenir à la gestion des modules")
-		a = Outils.menu("Choisissez le module à supprimer",liste)
+		liste = []
+		liste.append("Revenir à la gestion des modules")
+		for i in range(0,len(self.conf.listeModule)):
+			liste.append(self.conf.listeModule[i][0])
+		a = Outils.menu("Choisissez le module à supprimer : ",liste)
 		if a == 0:
 			self.menuModule()
 		else:
 			self.conf.delModule(a-1)
 			print("Le module a été supprimé avec succès")
 			sleep(3)
+			print()
+			self.menuModule()
 
 		
  

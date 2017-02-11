@@ -3,6 +3,7 @@ from outils import *
 from time import sleep
 import time
 import _thread 
+from rappel import *
 
 
 class Reveil:
@@ -67,39 +68,32 @@ class Reveil:
 		# Verifie si un fichier à la date exacte d'aujourd'hui existe (format annee_mois_jour_heure_minute.f) et lance son ouverture si il existe et suprrime le fichier ensuite.
 		if (time.localtime() != self.temps_tab_date ):
 			self.temps_tab_date = time.localtime()
+			liste = [self.temps_tab_date[0],self.temps_tab_date[1],self.temps_tab_date[2],self.temps_tab_date[3],self.temps_tab_date[4]]
+			type = 2
 			chaine = str(self.temps_tab_date[0])+"_"+str(self.temps_tab_date[1])+"_"+str(self.temps_tab_date[2])+"_"+str(self.temps_tab_date[3]) + "_" +str(self.temps_tab_heure[4])+".f"
 			if (Outils.testPresence(self.pathReveilDate+chaine)):
 				_thread.start_new_thread(self.ouvreReveil,(self.pathReveilDate+chaine,))
 			
 
-	def ouvreReveil(self,path):
-		# Permet d'ouvrir le fichier donné en parametres NE SE PREOCCUPE PAS DE PART1 pour le moment
-		chaine = Outils.lireFichier(path)
-		chainePart1 = Outils.recupereBaliseAuto(chaine,"Part 1",1)
-		chainePart2 = Outils.recupereBaliseAuto(chaine,"Part 2",1)
-		nb = Outils.compter(chainePart2,"<Module>")
-		for i in range (0,nb):
-			chaineModule = Outils.recupereBaliseAuto(chainePart2,"Module",i+1)
-			chaineNom = Outils.recupereBaliseAuto(chaineModule,"Nom",1)
-			arguments = []
-			nbArgument = Outils.compter(chainePart2,"<Argument>")
-			for i2 in range (0,nbArgument):
-				arguments.append(Outils.recupereBaliseAuto(chaineModule,"Argument",i2+1))
-			self.lireConfig()
-			dossierModule = self.conf.getDossierModule(chaineNom)
+	
+
+
+
+
+
+
+	def ouvreReveil(self,type,listeDateHeure):
+		#  Permet d'oubrir le reveil donné en parametres et d'y lancer les fonctions
+		r = Rappel()
+		r.openRappel(type,listeDateHeure)
+		# GESTION DE LA PARTIE 1 A FAIRE
+		for i in range(0,len(r.listeCommandePart2)):
+			dossierModule = self.conf.getDossierModule(r.listeCommandePart2[i])
 			if dossierModule != "":
 				module = __import__(dossierModule.replace(os.separator,".")+"module.py",fromlist=[None])  # I don't understant that fromlist
 				try:
-					module.start(arguments)
+					module.start(r.listeArgumentPart2[i])
 				except:
 					# A METTRE DANS LE LOG
 					pass
-
-
-
-
-
-
-
-
 

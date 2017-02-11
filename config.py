@@ -36,7 +36,7 @@ class Config:
 		self.save()
 
 
-	def verificationModule (nom):
+	def verificationModule (self,nom):
 		# Vérifie que le le module n'existe pas déja
 		for i in range (len(self.listeModule)):
 			if (self.listeModule[i][0] == nom):
@@ -61,6 +61,12 @@ class Config:
 		self.listeModule = []
 		self.listeLancement = [] # 
 		self.presence = True
+		self.pathConfig = "Donnees"+os.sep+"Config"+os.sep+""
+		self.pathReveilHeure = "Donnees"+os.sep+"Reveil"+os.sep+"Heure"+os.sep
+		self.pathReveilDate = "Donnees"+os.sep+"Reveil"+os.sep+"Date"+os.sep+""
+		self.pathReveilJour = "Donnees"+os.sep+"Reveil"+os.sep+"Jour"+os.sep+""
+		self.pathModule = "Donnees"+os.sep+"Module"+os.sep+""
+		self.pathLog = "Donnees"+os.sep+"Log"+os.sep+""
 		# LOG A FAIRE
 
 	def openConfig(self):
@@ -100,6 +106,7 @@ class Config:
 		
 		for i in range (len(self.listeModule)):
 			chaine += Outils.constitueBalise("Module", Outils.constitueBalise("Nom",self.listeModule[i][0])+Outils.constitueBalise("Dossier",self.listeModule[i][1]))+"\n"
+		for i in range(len(self.listeLancement)):
 			chaine += Outils.constitueBalise("Lancement",Outils.constitueBalise("Nom", self.listeLancement[i][0])+Outils.constitueBalise("Classe",self.listeLancement[i][1]))
 		
 		Outils.ecrireFichier(self.endroitFichier,chaine)
