@@ -23,7 +23,7 @@ class Rappel :
 
 	def save(self):
 		# Sauvegarde le rappel
-		endroit = self.getEndroit(self.typeRappel, self.listeDateHeure)
+		endroit = self.createPath(self.getEndroit())
 		if (endroit == ""):
 			return False
 
@@ -42,11 +42,11 @@ class Rappel :
 				chaine2+= Outils.constitueBalise("Argument", self.listeArgumentPart2[i][i2])
 			chaine += Outils.constitueBalise("Module",chaine2)+"\n"
 
-		chaine3 += Outils.constitueBalise("Part 2",chaine)
+		chaine3 += Outils.constitueBalise("Part 2",chaine)+"\n"
 		Outils.ecrireFichier(endroit,chaine3)
 
 
-	def getEndroit(self,type,listeDateHeure):
+	def getEndroit(self):
 		# Renvoie l'endroit du fichier si le type et la liste forment un couple possible
 		endroit = ""
 		if (self.typeRappel == 0 and len(self.listeDateHeure) == 2):
@@ -55,12 +55,12 @@ class Rappel :
 		elif (self.typeRappel == 1 and len(self.listeDateHeure) == 3):
 			endroit = str(self.listeDateHeure[0])+"_"+str(self.listeDateHeure[1])+"_"+str(self.listeDateHeure[2])+".f"
 
-		elif (self.typeRappel == 1 and len(self.listeDateHeure) == 3):
-			endroit = str(self.listeDateHeure[0])+"_"+str(self.listeDateHeure[1])+"_"+str(self.listeDateHeure[2])+str(self.listeDateHeure[3])+"_"+str(self.listeDateHeure[4])+".f"
-
+		elif (self.typeRappel == 2 and len(self.listeDateHeure) == 5):
+			endroit = str(self.listeDateHeure[0])+"_"+str(self.listeDateHeure[1])+"_"+str(self.listeDateHeure[2])+"_"+str(self.listeDateHeure[3])+"_"+str(self.listeDateHeure[4])+".f"
+		#print(endroit)
 		return endroit
 
-	def createPath(self,endroit, type):
+	def createPath(self,endroit):
 		# Cree le path pour le fichier
 		self.lireConfig()
 		if self.typeRappel == 0:
@@ -69,17 +69,19 @@ class Rappel :
 			endroit = self.conf.pathReveilJour+endroit
 		if self.typeRappel == 2:
 			endroit = self.conf.pathReveilDate+endroit
+		#print(endroit)
 		return endroit
 
 
 	def openRappel(self,type,listeDateHeure):
 		# Ouvre le rappel si il existe
 		self.initialisation()
-		endroit = self.getEndroit(type, listeDateHeure)
+		endroit = self.getEndroit()
 		if (endroit == ""):
 			return False
-
-		endroit = self.createPath(endroit,type)
+		self.typeRappel = type
+		self.listeDateHeure = listeDateHeure
+		endroit = self.createPath(endroit)
 		chaine = Outils.lireFichier(endroit)
 		chainePart1 = Outils.recupereBaliseAuto(chaine,"Part 1",1)
 		chainePart2 = Outils.recupereBaliseAuto(chaine,"Part 2",1)

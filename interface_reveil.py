@@ -1,6 +1,7 @@
 from time import sleep
 from rappel import *
-
+from reveil import *
+import datetime
 
 class InterfaceReveil:
 	def __init__ (self):
@@ -23,6 +24,7 @@ class InterfaceReveil:
 		a = Outils.menu("MENU PRINCIPAL",liste)
 		print()
 		if a == 1:
+			self.initialisation()
 			self.menuAjout()
 		elif a == 2:
 			modifierRapp()
@@ -47,6 +49,7 @@ class InterfaceReveil:
 		# initialise les variables notammant pour ajouter un rappel
 		self.rappel = Rappel()
 		self.conf = Config()
+		self.reveil = Reveil()
 
 
 
@@ -86,7 +89,8 @@ class InterfaceReveil:
 			self.rappel.save()
 			print("Ce rappel a été sauvegardé")
 		else:
-			prin("Ce rappel n'a pas été sauvegardé")
+			print("Ce rappel n'a pas été sauvegardé")
+
 
 
 	def afficheCommande(self):
@@ -145,7 +149,7 @@ class InterfaceReveil:
 			b = Outils.intInput("Combien d'arguments à ce module souhaitez-vous donnez : ")
 			print()
 			for i in range(0,b):
-				argument.append(input("Entrez l'argument n°"+str(i)+" : "))
+				argument.append(input("Entrez l'argument n°"+str(1+i)+" : "))
 				print()
 			self.rappel.addCommande(self.conf.listeModule[a][0],argument ,part1)
 			print()
@@ -213,12 +217,11 @@ class InterfaceReveil:
 		print()
 		print("Le reveil est actuellement défini ")
 		print()
-		liste = ["Menu ajout","Rappel journalier","Rappel hebdomadaire","Rappel unique", "Rappel unique dans 1 minute"]
+		liste = ["Menu ajout","Rappel journalier","Rappel hebdomadaire","Rappel unique", "Rappel unique dans 1 minute","Rappel unique dans 5 minutes"]
 		a = Outils.menu("DEFINIR L'HEURE/LA DATE DU RAPPEL",liste,False)
 		print("----------------------------")
 		print()
 		if a == 0:
-			# Faire la sauvegarde
 			self.menuAjout()
 		if a == 1 :
 			self.rappelJournalier()
@@ -227,12 +230,18 @@ class InterfaceReveil:
 		if a == 3:
 			self.rappelUnique()
 		if a == 4:
-			temps_tab_heure = time.localtime()
-			liste= [temps_tab_heure[0],temps_tab_heure[1]]
+			self.rappel.definirHeureDate(2,self.datePlusMinutes(1))
+			self.menuAjout()
+		if a == 5:
+			self.rappel.definirHeureDate(2,self.datePlusMinutes(5))
+			self.menuAjout()
 
-	def date1minutes(self):
+	def datePlusMinutes(self,nb):
 		# Renvoie une liste avec le temps dans une minute
-		temps_tab_heure = time.localtime()+60
+		now = datetime.datetime.now()
+		now_plus_1 = now + datetime.timedelta(minutes = nb)
+		liste = [now_plus_1.year,now_plus_1.month, now_plus_1.day, now_plus_1.hour, now_plus_1.minute]
+		return liste
 
 	def rappelJournalier(self):
 		# Permet de définir l'heure du rapport journallier
