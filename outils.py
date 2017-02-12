@@ -211,6 +211,11 @@ class Outils:
     def compter(chaine, recherche):
         return chaine.count(recherche);
 
+    # Fonction retournant une liste des fichiers contenu dans un dossier
+    def getDossier(path):
+        liste = os.listdir(path)
+        return liste
+
 
     # Fonction qui supprime un dossier ainsi que tout son contenu
     def supprimeDossier(path):
@@ -243,6 +248,14 @@ class Outils:
         mon_fichier.close()
         return 1
         
+
+    # Fonction qui supprime un fichier
+    def supprimerFichier(endroit_fichier):
+        if Outils.testPresence(endroit_fichier):
+            os.remove(endroit_fichier)
+            return True
+        return False
+
     # Fonction qui test la présence d'un fichier.
     def testPresence(endroit_fichier): # Teste la présence d'un fichier
         try :

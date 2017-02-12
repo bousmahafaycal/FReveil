@@ -166,3 +166,11 @@ class Rappel :
 			return True
 
 		return False
+
+
+	def getNomJour(self):
+		# Renvoie le jour en chaine si c'est un reveil hebdomadaire
+		liste["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"]
+		if self.typeRappel == 1:
+			return liste[self.listeDateHeure[0]]
+		return ""

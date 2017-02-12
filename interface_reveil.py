@@ -2,6 +2,7 @@ from time import sleep
 from rappel import *
 from reveil import *
 import datetime
+from liste_rappel import *
 
 class InterfaceReveil:
 	def __init__ (self):
@@ -35,7 +36,41 @@ class InterfaceReveil:
 
 	def voirRapp(self):
 		# Menu permettant de choisir le type de rappel souhaitant être vu
-		pass
+		print()
+		liste = ["Menu principal","Rappels journaliers","Rappels hebdomadaires","Rappels uniques"]
+		a = Outils.menu("MENU VOIR RAPPELS : choisissez quel type de rappel souhaitez-vous voir ?",liste)
+		print()
+		if a == 0:
+			self.menuPrincipal()
+		else:
+			self.voirRappType(a-1)
+
+	def voirRappType(self, type):
+		# Permet de voir la liste des rappels du type donné. 
+		rappel = ListeRappel(type)
+		liste = rappel.getListeRappel() 
+		if type == 0:
+			print("Liste des rappels journaliers : ")
+		elif type == 1:
+			print("Liste des rappels hebdomadaires : ")
+		elif type == 2:
+			print("Liste des rappels uniques : ")
+		chaine = ""
+		for i in range(0,len(liste)):
+			chaine = str(i+1)+" : "
+			if type == 0:
+				chaine += liste[i].listeDateHeure[0]+"h"+liste[i].listeDateHeure[1]
+			elif type == 1:
+				chaine += liste[i].getNomJour(liste[i].listeDateHeure[0])+ " à "+liste[i].listeDateHeure[1]+"h"+liste[i].listeDateHeure[2]
+			elif type == 2:
+				chaine += liste[i].listeDateHeure[0]+"/"+liste[i].listeDateHeure[1]+"/"+liste[i].listeDateHeure[2]+" à "+liste[i].listeDateHeure[3]+"h"+liste[i].listeDateHeure[4]
+
+			print(chaine)
+		print()
+		input("Appuyez sur entrée pour revenir au menu précédent")
+		print()
+		self.voirRapp()
+
 
 	def modifierRapp(self):
 		# Menu permettant de choisir le type de rappel souhaitant être modifié
