@@ -20,13 +20,16 @@ class ListeRappel:
 			liste  = Outils.getDossier(self.conf.pathReveilDate)
 		return liste
 
+	def afficherRappel(self,id):
+		# Permet d'afficher quand est-ce que le rappel va être appelé de manière formatée
+		return self.getRappel(id).afficherRappel()
 
 
 	def delRappel(self,id):
 		# Permet de supprimer un rappel, en supprimant physiquement le fichier correspondant
-		rappel = self.getRappelFromList(listeDateHeure)
+		rappel = self.getRappel(id)
 		endroit = rappel.createPath(rappel.getEndroit())
-		Outils.supprimerFichier()
+		Outils.supprimerFichier(endroit)
 
 
 	def getListeRappel(self):
@@ -48,7 +51,14 @@ class ListeRappel:
 	def getRappelFromList(self,listeDateHeure):
 		# A partir d'une liste on recuperere le rappel
 		rappel = Rappel()
-		rappel.definirHeureDate(self.type,listeDateHeure)
+		rappel.openRappel(self.type,listeDateHeure)
 		return rappel
 
 
+	def getIdRappel(self,rappel):
+		# Renvoie l'id d'un rappel à partir du rappel
+		liste = self.getListeRappel()
+		for i in range(len(liste)):
+			if liste[i] == rappel:
+				return i
+		return -1

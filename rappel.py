@@ -26,7 +26,8 @@ class Rappel :
 		endroit = self.createPath(self.getEndroit())
 		if (endroit == ""):
 			return False
-
+		if Outils.testPresence(endroit):
+			return False
 		chaine = "\n"
 		for i in range(0,len(self.listeCommandePart1)):
 			chaine2 = Outils.constitueBalise("Nom",self.listeCommandePart1[i])
@@ -44,6 +45,7 @@ class Rappel :
 
 		chaine3 += Outils.constitueBalise("Part 2",chaine)+"\n"
 		Outils.ecrireFichier(endroit,chaine3)
+		return True
 
 
 	def getEndroit(self):
@@ -75,13 +77,18 @@ class Rappel :
 
 	def openRappel(self,type,listeDateHeure):
 		# Ouvre le rappel si il existe
+		#print("openRappel")
 		self.initialisation()
+		self.typeRappel = type
+		self.listeDateHeure = listeDateHeure
 		endroit = self.getEndroit()
 		if (endroit == ""):
 			return False
-		self.typeRappel = type
-		self.listeDateHeure = listeDateHeure
 		endroit = self.createPath(endroit)
+
+		if not Outils.testPresence(endroit):
+			return False
+		#print(endroit)
 		chaine = Outils.lireFichier(endroit)
 		chainePart1 = Outils.recupereBaliseAuto(chaine,"Part 1",1)
 		chainePart2 = Outils.recupereBaliseAuto(chaine,"Part 2",1)
@@ -89,12 +96,14 @@ class Rappel :
 		# A FINIR
 		for i in range(0,nb):
 			chaineModule = Outils.recupereBaliseAuto(chainePart1,"Module",i+1)
+			#print(chaineModule)
 			chaineNom = Outils.recupereBaliseAuto(chaineModule,"Nom",1)
 			arguments = []
 			nbArgument = Outils.compter(chainePart1,"<Argument>")
 			for i2 in range (0,nbArgument):
 				arguments.append(Outils.recupereBaliseAuto(chaineModule,"Argument",i2+1))
 			self.addCommande(chaineNom,arguments)
+
 
 		nb = Outils.compter(chainePart2,"<Module>")
 		for i in range(0,nb):
@@ -105,6 +114,7 @@ class Rappel :
 			for i2 in range (0,nbArgument):
 				arguments.append(Outils.recupereBaliseAuto(chaineModule,"Argument",i2+1))
 			self.addCommande(chaineNom,arguments,False)
+			#print("chaineNom dans rappel.py : "+chaineNom)
 
 
 
@@ -174,3 +184,14 @@ class Rappel :
 		if self.typeRappel == 1:
 			return liste[self.listeDateHeure[0]]
 		return ""
+
+	def afficherRappel(self):
+		# Permet d'afficher quand est-ce que le rappel va être appelé de manière formatée
+		chaine = ""
+		if self.typeRappel == 0:
+			chaine += self.listeDateHeure[0]+"h"+self.listeDateHeure[1]
+		elif self.typeRappel == 1:
+			chaine += self.getNomJour(self.listeDateHeure[0])+ " à "+self.listeDateHeure[1]+"h"+self.listeDateHeure[2]
+		elif self.typeRappel == 2:
+			chaine += self.listeDateHeure[0]+"/"+self.listeDateHeure[1]+"/"+self.listeDateHeure[2]+" à "+self.listeDateHeure[3]+"h"+self.listeDateHeure[4]
+		return chaine

@@ -27,13 +27,15 @@ class InterfaceConfig:
 	def menuPrincipal(self):
 		# Menu principal de cette interface
 		print()
-		liste = ["Quitter","Gestion des modules","Gestion de la présence"]
+		liste = ["Quitter","Gestion des modules","Gestion de la présence","Gestion de l'appui sur le bouton"]
 		a = Outils.menu("MENU PRINCIPAL",liste)
 		print()
 		if a == 1:
 			self.menuModule()
 		elif a == 2:
 			self.gestionPresence()
+		elif a == 3:
+			self.gestionBouton()
 
 
 	def menuModule(self):
@@ -58,7 +60,7 @@ class InterfaceConfig:
 		print("Voici la liste des modules actuellement disponible : ")
 		for i in range(0,len(self.conf.listeModule)):
 			print(str(i+1)+" - "+self.conf.listeModule[i][0])
-			print()
+		print()
 		input("Appuyez sur entrée pour retourner à la gestion des modules.")
 		print()
 		self.menuModule()
@@ -169,6 +171,32 @@ class InterfaceConfig:
 			print()
 			print()
 			self.gestionPresence()
+
+	def gestionBouton(self):
+		# Va donner la precedente valeur de bouton  et offrir le choix à l'utilisateur de simuler l'appui sur le bouton
+		self.lireConfig()
+		print()
+		print("--------------------------------------------------------")
+		if (self.conf.bouton ):
+			print("Etat bouton : Appuyé")
+		else:
+			print("Etat bouton : Non appuyé")
+		print()
+		liste = ["Revenir au menu principal","Appuyer sur le bouton","Passer en mode non appuyé"]
+		a = Outils.menu("GESTION DU BOUTON",liste, False)
+		print("--------------------------------------------------------")
+		if a == 0:
+			self.menuPrincipal()
+		elif a == 1:
+			self.conf.setBouton(True)
+			print()
+			print()
+			self.gestionBouton()
+		elif a == 2:
+			self.conf.setBouton(False)
+			print()
+			print()
+			self.gestionBouton()
 
 
 a = InterfaceConfig()

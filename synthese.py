@@ -2,14 +2,8 @@
 avec des fonctions définies """ 
 from outils import * 
 import os,time 
-from  lireConfig import *;
 
 class Synthese :
-	def syntheseMeteo (self):
-		a = LireConfig();
-		path = a.getPathMeteo()
-		self.synthese(Outils.lireFichier(path+"meteo.f"))
-		pass;
 
 	def syntheseHeure (self):
 		temps_tab = time.localtime()
@@ -113,7 +107,7 @@ class Synthese :
 	    return liste
 
 	def synthese(self,chaine): # Fonction qui est appelee pour utiliser la synthese vocale. Celle ci a un systeme de separation pour ne pas passer outre la limitation de 100 caracteres qu'impose la synthese de google, a un systeme qui permet d'encoder le texte a envoyer pour tous les caracteres speciaux
-		path = "/root/Donnees/"
+		path = ""#"/root/Donnees/"
 		#print("Synthese")
 		if Outils.testPresence("synthese.f") == 1:
 		    Outils.ecrireFichier("synthese.f",chaine,1) # Le 1 en dernier parametre permet que la fonction Outils.ecrireFichier comprenne qu'il faut ajouter à la fin du fichier et non pas ecraser le fichier puis ecrire ce que l'on a a ecrire

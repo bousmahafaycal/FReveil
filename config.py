@@ -20,7 +20,7 @@ class Config:
 		# A partir du nom du module, renvoyer la localisation du module concerné est une chaine vide sinon
 		for i in range(0, len(self.listeModule)):
 			if self.listeModule[i][0] == nom:
-				return self.endroitModule+self.listeModule[i][1]
+				return self.endroitModule+self.listeModule[i][1]+os.sep
 		return ""
 
 	def addModule (self,nom,pathModule):
@@ -61,6 +61,7 @@ class Config:
 		self.listeModule = []
 		self.listeLancement = [] # 
 		self.presence = True
+		self.bouton = False
 		self.pathConfig = "Donnees"+os.sep+"Config"+os.sep+""
 		self.pathReveilHeure = "Donnees"+os.sep+"Reveil"+os.sep+"Heure"+os.sep
 		self.pathReveilDate = "Donnees"+os.sep+"Reveil"+os.sep+"Date"+os.sep+""
@@ -86,6 +87,7 @@ class Config:
 				self.listeLancement.append(liste2)
 
 			self.presence = Outils.recupereBaliseAuto(chaine, "Presence", 1, "Presence") == "True"
+			self.bouton = Outils.recupereBaliseAuto(chaine, "Bouton", 1) == "True"
 		else:
 			# Le fichier n'existe pas LOG A FAIRE
 			pass
@@ -100,9 +102,16 @@ class Config:
 		self.save()
 		# LOG A FAIRE
 
+	def setBouton(self, bouton):
+		# Modifie si l'utilisateur est présent ou pas.
+		self.bouton = bouton
+		self.save()
+		# LOG A FAIRE
+
 	def save(self):
 		# Fonction qui va sauvegarder la config dans le fichier config.f
 		chaine = Outils.constitueBalise("Presence",str(self.presence)) + "\n"
+		chaine += Outils.constitueBalise("Bouton",str(self.bouton)) + "\n"
 		
 		for i in range (len(self.listeModule)):
 			chaine += Outils.constitueBalise("Module", Outils.constitueBalise("Nom",self.listeModule[i][0])+Outils.constitueBalise("Dossier",self.listeModule[i][1]))+"\n"
