@@ -27,6 +27,7 @@ class Rappel :
 		if (endroit == ""):
 			return False
 		if Outils.testPresence(endroit):
+			print("Un fichier existe déja ici : "+endroit)
 			return False
 		chaine = "\n"
 		for i in range(0,len(self.listeCommandePart1)):

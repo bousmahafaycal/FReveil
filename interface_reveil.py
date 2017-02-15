@@ -236,6 +236,7 @@ class InterfaceReveil:
 				rappel = listeRappel.getRappel(z)
 				#z = listeRappel.getIdRappel(rappel)
 				listeRappel.delRappel(a-1)
+				#print(str(rappel.createPath(rappel.getEndroit())))
 			if not self.rappel.save():
 				if z != 1 and type != -1:
 					rappel.save()
@@ -360,11 +361,11 @@ class InterfaceReveil:
 				print("Aucune supression n'a été réalisée !")
 			elif part1 and a > 0 and a <= len(self.rappel.listeCommandePart1):
 				continuer = False
-				rappel.delCommande(a,True)
+				self.rappel.delCommande(a,True)
 				print("Suppression réalisée avec succès !")
 			elif not part1 and a > 0 and a <= len(self.rappel.listeCommandePart2):
 				continuer = False
-				rappel.delCommande(a,False)
+				self.rappel.delCommande(a,False)
 				print("Suppression réalisée avec succès !")
 			else :
 				print("Ce nombre ne correspond pas à une commande, merci de donner un choix valable !")
@@ -412,11 +413,11 @@ class InterfaceReveil:
 					print("Modification annulée !")
 				elif part1 and a > 0 and a <= len(self.rappel.listeCommandePart1):
 					continuer = False
-					rappel.delCommande(a,True)
+					#self.rappel.delCommande(a,True)
 					print("Modification réalisée avec succès !")
 				elif not part1 and a > 0 and a <= len(self.rappel.listeCommandePart2):
 					continuer = False
-					rappel.delCommande(a,False)
+					#self.rappel.delCommande(a,False)
 					print("Modification réalisée avec succès !")
 				else :
 					print("Ce nombre ne correspond pas à une commande, merci de donner un choix valable !")

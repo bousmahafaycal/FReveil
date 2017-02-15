@@ -28,13 +28,6 @@ class Reveil:
 	
 	def initialisation (self):
 		# Créer la structure de dossiers et le fichier de configuration
-		
-		Outils.creeDossier(self.pathConfig)
-		Outils.creeDossier(self.pathReveilHeure)
-		Outils.creeDossier(self.pathReveilDate)
-		Outils.creeDossier(self.pathReveilJour)
-		Outils.creeDossier(self.pathModule)
-		Outils.creeDossier(self.pathLog)
 		self.conf = Config()
 		self.pathConfig = self.conf.pathConfig
 		self.pathReveilHeure = self.conf.pathReveilHeure
@@ -45,6 +38,13 @@ class Reveil:
 		self.temps_tab_heure = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
 		self.temps_tab_jour  = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
 		self.temps_tab_date  = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
+		Outils.creeDossier(self.pathConfig)
+		Outils.creeDossier(self.pathReveilHeure)
+		Outils.creeDossier(self.pathReveilDate)
+		Outils.creeDossier(self.pathReveilJour)
+		Outils.creeDossier(self.pathModule)
+		Outils.creeDossier(self.pathLog)
+		
 		
 
 	def verificationHeure(self):
