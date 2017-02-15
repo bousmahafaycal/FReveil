@@ -68,6 +68,9 @@ class Config:
 		self.pathReveilJour = "Donnees"+os.sep+"Reveil"+os.sep+"Jour"+os.sep+""
 		self.pathModule = "Donnees"+os.sep+"Module"+os.sep+""
 		self.pathLog = "Donnees"+os.sep+"Log"+os.sep+""
+		self.lockAudio = False
+		self.listeAttenteLockAudio = []
+		self.lastId = 0
 		# LOG A FAIRE
 
 	def openConfig(self):
@@ -108,10 +111,53 @@ class Config:
 		self.save()
 		# LOG A FAIRE
 
+	def getId(self):
+		# Va donner un id au module
+		self.lastId += 1
+		return self.lastId - 1
+
+	def setLockAudio(self,valeur,id):
+		# Quand cette ressouce est à true, cela signifie qu'un module utilise la musique
+		# Returns: 1 signifie qu'on a le lock audio, 2 qu'on lache le lock audio, 3 quand on est dans la file d'attente
+		fileAttente = False
+		self.openConfig()
+		if self.lockAudio == False:
+			if len(self.listeAttenteLockAudio) == 0:
+				self.listeAttenteLockAudio.append(id)
+				self.lockAudio = valeur
+				self.save()
+				return 1
+			elif id == self.listeAttenteLockAudio[0]:
+				self.lockAudio = valeur
+				self.save()
+				return 1
+			else:
+				fileAttente = True
+		else:
+			if (valeur) and id == self.listeAttenteLockAudio[0]: # Si on demande à avoir le lock alors qu'on l'a déja. Cas qui ne devrait pas se présenter mais on sait jamais
+				return 1
+			
+
+			elif (not valeur) and id == self.listeAttenteLockAudio[0]:
+				del(self.listeAttenteLockAudio[0])
+				self.lockAudio = valeur
+				self.save()
+				return 2
+			elif id not  in self.listeAttenteLockAudio:
+				fileAttente = True
+
+		# Si fileAtente vaut True, ca veut dire qu'on doit l'inserer dans la file d'attente
+		if fileAtente == True :
+			self.listeAttenteLockAudio.append(id)
+			self.save()
+		
+		return 3 # soit on vient de l'inserer dans la file d'attente, soit il y est déja
+
 	def save(self):
 		# Fonction qui va sauvegarder la config dans le fichier config.f
 		chaine = Outils.constitueBalise("Presence",str(self.presence)) + "\n"
 		chaine += Outils.constitueBalise("Bouton",str(self.bouton)) + "\n"
+		chaine += Outils.constitueBalise("RessourceAudio",str(self.lockAudio)) + "\n"
 		
 		for i in range (len(self.listeModule)):
 			chaine += Outils.constitueBalise("Module", Outils.constitueBalise("Nom",self.listeModule[i][0])+Outils.constitueBalise("Dossier",self.listeModule[i][1]))+"\n"
@@ -121,3 +167,10 @@ class Config:
 		Outils.ecrireFichier(self.endroitFichier,chaine)
 
 
+	def cleanUpAudio(self):
+		# Fonction permettant de remettre la gestion de ressource audio à 0
+		self.openConfig()
+		self.lockAudio = False
+		self.listeAttenteLockAudio = []
+		self.lastId = 0
+		self.save()
