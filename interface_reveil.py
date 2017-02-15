@@ -361,11 +361,11 @@ class InterfaceReveil:
 				print("Aucune supression n'a été réalisée !")
 			elif part1 and a > 0 and a <= len(self.rappel.listeCommandePart1):
 				continuer = False
-				self.rappel.delCommande(a,True)
+				self.rappel.delCommande(a-1,True)
 				print("Suppression réalisée avec succès !")
 			elif not part1 and a > 0 and a <= len(self.rappel.listeCommandePart2):
 				continuer = False
-				self.rappel.delCommande(a,False)
+				self.rappel.delCommande(a-1,False)
 				print("Suppression réalisée avec succès !")
 			else :
 				print("Ce nombre ne correspond pas à une commande, merci de donner un choix valable !")
@@ -424,7 +424,7 @@ class InterfaceReveil:
 					print()
 
 			if not menu:
-				self.rappel.insererCommande(b, a, part1)
+				self.rappel.insererCommande(b-1, a-1, part1)
 
 		print()
 		sleep(1)

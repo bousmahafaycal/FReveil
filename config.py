@@ -174,7 +174,7 @@ class Config:
 			chaine += Outils.constitueBalise("Lancement",Outils.constitueBalise("Nom", self.listeLancement[i][0])+Outils.constitueBalise("Classe",self.listeLancement[i][1]))+"\n"
 		chaine += "\n"
 		for i in range(len(self.listeAttenteLockAudio)):
-			chaine += Outils.constitueBalise("ListeAttenteRessourceAudio", self.listeAttenteLockAudio[i])+"\n"
+			chaine += Outils.constitueBalise("ListeAttenteRessourceAudio", str(self.listeAttenteLockAudio[i]))+"\n"
 		Outils.ecrireFichier(self.endroitFichier,chaine)
 
 

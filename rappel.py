@@ -27,7 +27,7 @@ class Rappel :
 		if (endroit == ""):
 			return False
 		if Outils.testPresence(endroit):
-			print("Un fichier existe déja ici : "+endroit)
+			#print("Un fichier existe déja ici : "+endroit)
 			return False
 		chaine = "\n"
 		for i in range(0,len(self.listeCommandePart1)):
@@ -144,7 +144,6 @@ class Rappel :
 				return False
 			del(self.listeCommandePart2[nb])
 			del(self.listeArgumentPart2[nb])
-
 		return True
 
 	def insererCommande(self,nb1, nb2, part1 = True):
@@ -155,16 +154,16 @@ class Rappel :
 			commande = self.listeCommandePart1[nb1]
 			argument = self.listeArgumentPart1[nb1]
 			self.delCommande(nb1)
-			self.listeCommandePart1.append(nb2, commande)
-			self.listeArgumentPart1.append(nb2,argument)
+			self.listeCommandePart1.insert(nb2, commande)
+			self.listeArgumentPart1.insert(nb2,argument)
 		else :
 			if nb1 < 0 or nb2 < 0 or nb2 >= len(self.listeCommandePart2) or nb1 >= len(self.listeCommandePart2):
 				return False
 			commande = self.listeCommandePart2[nb1]
-			argument = self.listeArgumentPart1[nb1]
+			argument = self.listeArgumentPart2[nb1]
 			self.delCommande(nb1,False)
-			self.listeCommandePart2.append(nb2, commande)
-			self.listeArgumentPart2.append(nb2,argument)
+			self.listeCommandePart2.insert(nb2, commande)
+			self.listeArgumentPart2.insert(nb2,argument)
 
 		return True
 
