@@ -84,13 +84,20 @@ class Config:
 				liste = [Outils.recupereBaliseAuto(chaine2, "Nom", 1, "Nom"), Outils.recupereBaliseAuto(chaine2, "Dossier", 1, "Dossier")]
 				self.listeModule.append(liste)
 			
-			for i2 in range (Outils.compter(chaine,"<Lancement>")):
+			for i in range (Outils.compter(chaine,"<Lancement>")):
 				chaine3 = Outils.recupereBaliseAuto(chaine, "Lancement", i+1, "Lancement")
 				liste2 = [Outils.recupereBaliseAuto(chaine3, "Nom", 1, "Nom"), Outils.recupereBaliseAuto(chaine3, "Classe", 1, "Classe")]
 				self.listeLancement.append(liste2)
 
+			for i in range(Outils.compter(chaine,"<ListeAttenteRessourceAudio")):
+				chaine2 = Outils.recupereBaliseAuto(chaine, "ListeAttenteRessourceAudio", i+1)
+				self.listeAttenteLockAudio.append(int(chaine2))
+
 			self.presence = Outils.recupereBaliseAuto(chaine, "Presence", 1, "Presence") == "True"
 			self.bouton = Outils.recupereBaliseAuto(chaine, "Bouton", 1) == "True"
+			self.lockAudio = Outils.recupereBaliseAuto(chaine, "RessourceAudio", 1) == "True"
+			self.lockAudio = int(Outils.recupereBaliseAuto(chaine, "LastId", 1))
+			
 		else:
 			# Le fichier n'existe pas LOG A FAIRE
 			pass
@@ -158,12 +165,16 @@ class Config:
 		chaine = Outils.constitueBalise("Presence",str(self.presence)) + "\n"
 		chaine += Outils.constitueBalise("Bouton",str(self.bouton)) + "\n"
 		chaine += Outils.constitueBalise("RessourceAudio",str(self.lockAudio)) + "\n"
+		chaine += Outils.constitueBalise("LastId",str(self.lastId)) + "\n"
 		
 		for i in range (len(self.listeModule)):
 			chaine += Outils.constitueBalise("Module", Outils.constitueBalise("Nom",self.listeModule[i][0])+Outils.constitueBalise("Dossier",self.listeModule[i][1]))+"\n"
+		chaine += "\n"
 		for i in range(len(self.listeLancement)):
-			chaine += Outils.constitueBalise("Lancement",Outils.constitueBalise("Nom", self.listeLancement[i][0])+Outils.constitueBalise("Classe",self.listeLancement[i][1]))
-		
+			chaine += Outils.constitueBalise("Lancement",Outils.constitueBalise("Nom", self.listeLancement[i][0])+Outils.constitueBalise("Classe",self.listeLancement[i][1]))+"\n"
+		chaine += "\n"
+		for i in range(len(self.listeAttenteLockAudio)):
+			chaine += Outils.constitueBalise("ListeAttenteRessourceAudio", self.listeAttenteLockAudio[i])+"\n"
 		Outils.ecrireFichier(self.endroitFichier,chaine)
 
 
