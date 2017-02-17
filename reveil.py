@@ -38,12 +38,7 @@ class Reveil:
 		self.temps_tab_heure = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
 		self.temps_tab_jour  = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
 		self.temps_tab_date  = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
-		Outils.creeDossier(self.pathConfig)
-		Outils.creeDossier(self.pathReveilHeure)
-		Outils.creeDossier(self.pathReveilDate)
-		Outils.creeDossier(self.pathReveilJour)
-		Outils.creeDossier(self.pathModule)
-		Outils.creeDossier(self.pathLog)
+		
 		
 		
 
