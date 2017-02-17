@@ -71,6 +71,12 @@ class Config:
 		self.lockAudio = False
 		self.listeAttenteLockAudio = []
 		self.lastId = 0
+		Outils.creeDossier(self.pathConfig)
+		Outils.creeDossier(self.pathReveilHeure)
+		Outils.creeDossier(self.pathReveilDate)
+		Outils.creeDossier(self.pathReveilJour)
+		Outils.creeDossier(self.pathModule)
+		Outils.creeDossier(self.pathLog)
 		# LOG A FAIRE
 
 	def openConfig(self):
