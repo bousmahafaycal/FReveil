@@ -122,7 +122,11 @@ class Reveil:
 			#print("Dossier : "+dossierModule)
 			if dossierModule != "":
 				print("arguments : "+str(r.listeArgumentPart2[i]))
-				module = __import__(dossierModule.replace(os.sep,"."),fromlist=[None])  # I don't understant that fromlist
+				#module = __import__(dossierModule.replace(os.sep,"."),fromlist=[None])  # I don't understant that fromlist
+				sys.path.append(dossierModule)
+				module = __import__("module",fromlist=[None])  # I don't understant that fromlist
+				sys.path.remove(dossierModule)
+
 				try:
 					module.start(r.listeArgumentPart2[i])
 				except:
