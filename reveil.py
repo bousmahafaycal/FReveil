@@ -118,7 +118,7 @@ class Reveil:
 
 		#print("Rappel ouvert : "+str(len(r.listeCommandePart2)))
 		for i in range(0,len(r.listeCommandePart2)):
-			dossierModule = self.conf.getDossierModule(r.listeCommandePart2[i])+"module"
+			dossierModule = self.conf.getDossierModule(r.listeCommandePart2[i])
 			#print("Dossier : "+dossierModule)
 			if dossierModule != "":
 				print("arguments : "+str(r.listeArgumentPart2[i]))
