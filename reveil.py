@@ -104,9 +104,11 @@ class Reveil:
 						module = __import__("module",fromlist=[None])  # I don't understant that fromlist
 						sys.path.remove(dossierModule)
 
+
 						try:
 							print("arguments : "+str(r.listeArgumentPart1[i]))
 							module.start(r.listeArgumentPart1[i])
+							self.suppressionModule()
 						except:
 							# A METTRE DANS LE LOG
 							pass
@@ -129,9 +131,23 @@ class Reveil:
 
 				try:
 					module.start(r.listeArgumentPart2[i])
+					self.suppressionModule()
 				except:
 					# A METTRE DANS LE LOG
 					pass
 
+
+	def supressionModule(self):
+		# Supprime le module des listes de modules importés
+		for item in sorted(sys.modules.keys()):
+		    if 'module' in item :
+				del(sys.modules[item])
+
+
+
+
 #a = Reveil()
 #a.ouvreReveil(2,[2017,2,12,23,5])
+
+
+
