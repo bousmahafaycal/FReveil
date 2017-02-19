@@ -86,6 +86,7 @@ class InterfaceReveil:
 
 	def modifierRappel(self,type):
 		# Menu permettant de choisir le type de rappel souhaitant être modifié
+		self.initialisation()
 		print()
 		listeRappel = ListeRappel(type)
 		liste = []
