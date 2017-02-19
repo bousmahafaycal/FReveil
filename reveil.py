@@ -92,7 +92,7 @@ class Reveil:
 		# GESTION DE LA PARTIE 1 A FAIRE
 		continuer = True
 		while continuer:
-			print("boucle")
+			#print("boucle")
 			for i in range(0,len(r.listeCommandePart1)):
 				self.lireConfig()
 				if self.conf.bouton == False:
@@ -139,7 +139,7 @@ class Reveil:
 
 	def suppressionModule(self):
 		# Supprime le module des listes de modules importés
-		#print("fonction")
+		#<print("fonction")
 		for item in sorted(sys.modules.keys()):
 			if "module" in item :
 				#print("suppression")

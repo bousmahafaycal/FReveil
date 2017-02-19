@@ -2,6 +2,7 @@
 avec des fonctions définies """ 
 from outils import * 
 import os,time 
+from config import *
 
 class Synthese :
 
@@ -106,7 +107,7 @@ class Synthese :
 
 	    return liste
 
-	def synthese(self,chaine): # Fonction qui est appelee pour utiliser la synthese vocale. Celle ci a un systeme de separation pour ne pas passer outre la limitation de 100 caracteres qu'impose la synthese de google, a un systeme qui permet d'encoder le texte a envoyer pour tous les caracteres speciaux
+	"""def synthese(self,chaine): # Fonction qui est appelee pour utiliser la synthese vocale. Celle ci a un systeme de separation pour ne pas passer outre la limitation de 100 caracteres qu'impose la synthese de google, a un systeme qui permet d'encoder le texte a envoyer pour tous les caracteres speciaux
 		path = ""#"/root/Donnees/"
 		#print("Synthese")
 		if Outils.testPresence("synthese.f") == 1:
@@ -132,8 +133,18 @@ class Synthese :
 			    for i in range (0,a):
 			    	#print("syntheseLecture1")
 			    	self.syntheseLecture(liste[i])
-			        
+		"""	        
 
+	def synthese(self,chaine):
+		# Synthese vocale avec le gestionnaire de ressources audio
+		conf = Config ()
+		id = conf.getId()
+		a =  0
+		while a != 1:
+			a = conf.setLockAudio(True,id)
+		self.syntheseLecture(chaine)
+
+		conf.setLockAudio(False,id)
 
 
 	def syntheseLecture(self,chaine):
