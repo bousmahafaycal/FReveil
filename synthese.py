@@ -142,6 +142,7 @@ class Synthese :
 		a =  0
 		while a != 1:
 			a = conf.setLockAudio(True,id)
+			time.sleep(0.2)
 		self.syntheseLecture(chaine)
 
 		conf.setLockAudio(False,id)

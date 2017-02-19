@@ -144,7 +144,7 @@ class Config:
 				self.lockAudio = valeur
 				self.save()
 				return 1
-			else:
+			elif id not  in self.listeAttenteLockAudio:
 				fileAttente = True
 		else:
 			if (valeur) and id == self.listeAttenteLockAudio[0]: # Si on demande à avoir le lock alors qu'on l'a déja. Cas qui ne devrait pas se présenter mais on sait jamais
