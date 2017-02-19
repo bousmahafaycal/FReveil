@@ -92,7 +92,7 @@ class Reveil:
 		# GESTION DE LA PARTIE 1 A FAIRE
 		continuer = True
 		while continuer:
-			
+			print("boucle")
 			for i in range(0,len(r.listeCommandePart1)):
 				self.lireConfig()
 				if self.conf.bouton == False:
@@ -103,6 +103,7 @@ class Reveil:
 						#module = __import__(dossierModule.replace(os.sep,"."),fromlist=[None])  # I don't understant that fromlist # Ajouter module à dossierModule
 						module = __import__("module",fromlist=[None])  # I don't understant that fromlist
 						sys.path.remove(dossierModule)
+
 						try:
 							print("arguments : "+str(r.listeArgumentPart1[i]))
 							module.start(r.listeArgumentPart1[i])
