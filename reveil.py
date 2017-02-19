@@ -140,7 +140,7 @@ class Reveil:
 	def supressionModule(self):
 		# Supprime le module des listes de modules importés
 		for item in sorted(sys.modules.keys()):
-		    if 'module' in item :
+			if 'module' in item :
 				del(sys.modules[item])
 
 
