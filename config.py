@@ -191,3 +191,47 @@ class Config:
 		self.listeAttenteLockAudio = []
 		self.lastId = 0
 		self.save()
+
+
+	def verifierChangement(self,conf):
+		# Fonctioon verifiant l'objet actuel (le plus récent) à l'objet conf (plus ancien) et qui renvoie une liste de tous les changements
+		liste = []
+		if self.presence != conf.presence:
+			if not self.presence:
+				liste.append(1) # Signifie que la présence est passée true à false
+			else:
+				liste.append(2) # Signifie que la présence est passée de false à true
+		if self.bouton != conf.bouton:
+			if not self.bouton:
+				liste.append(3) # Signifie que le bouton est passé de true à false
+			else :
+				liste.append(4) # Signifie que le bouton est passé de false à true
+
+		if self.lockAudio != conf.lockAudio:
+			if not self.lockAudio:
+				liste.append(5)  # Signifie que le lock audio est passé de true à false
+			else:
+				liste.append(6) # Signifie que le lock audio est passé de false à true
+
+		return liste
+
+
+	def firstLancement(self):
+		# Crée une liste de l'état de la config actuelle
+		liste = []
+		if not self.presence:
+			liste.append(1) # Signifie que la présence est  à false
+		else:
+			liste.append(2) # Signifie que la présence est  à true
+
+		if not self.bouton:
+			liste.append(3) # Signifie que le bouton est à false
+		else :
+			liste.append(4) # Signifie que le bouton est à true
+
+		if not self.lockAudio:
+			liste.append(5)  # Signifie que le lock audio est à false
+		else:
+			liste.append(6) # Signifie que le lock audio est à true
+
+		return liste
