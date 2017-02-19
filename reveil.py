@@ -4,6 +4,7 @@ from time import sleep
 import time
 import _thread 
 from rappel import *
+import sys
 
 
 class Reveil:
@@ -95,10 +96,13 @@ class Reveil:
 			for i in range(0,len(r.listeCommandePart1)):
 				self.lireConfig()
 				if self.conf.bouton == False:
-					dossierModule = self.conf.getDossierModule(r.listeCommandePart1[i])+"module"
+					dossierModule = self.conf.getDossierModule(r.listeCommandePart1[i])
 					#print("Dossier : "+dossierModule)
 					if dossierModule != "":
-						module = __import__(dossierModule.replace(os.sep,"."),fromlist=[None])  # I don't understant that fromlist
+						sys.path.append(dossierModule)
+						#module = __import__(dossierModule.replace(os.sep,"."),fromlist=[None])  # I don't understant that fromlist # Ajouter module à dossierModule
+						module = __import__("module",fromlist=[None])  # I don't understant that fromlist
+						sys.path.remove(dossierModule)
 						try:
 							print("arguments : "+str(r.listeArgumentPart1[i]))
 							module.start(r.listeArgumentPart1[i])

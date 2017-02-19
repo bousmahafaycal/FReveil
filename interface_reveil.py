@@ -441,7 +441,6 @@ class InterfaceReveil:
 		print()
 		print("----------------------------")
 		print()
-		print("Le reveil est actuellement défini ")
 		print()
 		if id == 0:
 			liste = ["Menu ajout","Rappel journalier","Rappel hebdomadaire","Rappel unique", "Rappel unique dans 1 minute","Rappel unique dans 5 minutes"]
