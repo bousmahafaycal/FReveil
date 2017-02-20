@@ -13,6 +13,9 @@ class Config:
 	def __init__(self):
 		self.endroitFichier = "Donnees"+os.sep+"Config"+os.sep+"config.f" # Voici l'endroit ou on enregristre la configuration
 		self.endroitModule = "Donnees"+os.sep+"Module"+os.sep
+		self.lockAudio = False
+		self.listeAttenteLockAudio = []
+		self.lastId = 0
 		self.openConfig()
 
 
@@ -102,7 +105,7 @@ class Config:
 			self.presence = Outils.recupereBaliseAuto(chaine, "Presence", 1, "Presence") == "True"
 			self.bouton = Outils.recupereBaliseAuto(chaine, "Bouton", 1) == "True"
 			self.lockAudio = Outils.recupereBaliseAuto(chaine, "RessourceAudio", 1) == "True"
-			self.lockAudio = int(Outils.recupereBaliseAuto(chaine, "LastId", 1))
+			self.lastId = int(Outils.recupereBaliseAuto(chaine, "LastId", 1))
 			
 		else:
 			# Le fichier n'existe pas LOG A FAIRE
@@ -127,6 +130,7 @@ class Config:
 	def getId(self):
 		# Va donner un id au module
 		self.lastId += 1
+		self.save()
 		return self.lastId - 1
 
 	def setLockAudio(self,valeur,id):
@@ -134,20 +138,28 @@ class Config:
 		# Returns: 1 signifie qu'on a le lock audio, 2 qu'on lache le lock audio, 3 quand on est dans la file d'attente
 		fileAttente = False
 		self.openConfig()
+		#print("commencement"+str(self.listeAttenteLockAudio))
 		if self.lockAudio == False:
 			if len(self.listeAttenteLockAudio) == 0:
 				self.listeAttenteLockAudio.append(id)
 				self.lockAudio = valeur
 				self.save()
+				#print("setLockAudio: "+str(self.listeAttenteLockAudio))
 				return 1
 			elif id == self.listeAttenteLockAudio[0]:
 				self.lockAudio = valeur
 				self.save()
+				#print("Facilité")
 				return 1
-			elif id not  in self.listeAttenteLockAudio:
+			elif id not in self.listeAttenteLockAudio and valeur:
+				#print("file1")
 				fileAttente = True
 		else:
-			if (valeur) and id == self.listeAttenteLockAudio[0]: # Si on demande à avoir le lock alors qu'on l'a déja. Cas qui ne devrait pas se présenter mais on sait jamais
+			if len(self.listeAttenteLockAudio) == 0:
+				#print("file2")
+				fileAttente = True
+
+			elif (valeur) and id == self.listeAttenteLockAudio[0]: # Si on demande à avoir le lock alors qu'on l'a déja. Cas qui ne devrait pas se présenter mais on sait jamais
 				return 1
 			
 
@@ -155,12 +167,15 @@ class Config:
 				del(self.listeAttenteLockAudio[0])
 				self.lockAudio = valeur
 				self.save()
+				#print("On lache le setLockAudio: "+str(self.listeAttenteLockAudio))
 				return 2
 			elif id not  in self.listeAttenteLockAudio:
+				#print("file3")
 				fileAttente = True
 
-		# Si fileAtente vaut True, ca veut dire qu'on doit l'inserer dans la file d'attente
-		if fileAtente == True :
+		# Si fileAttente vaut True, ca veut dire qu'on doit l'inserer dans la file d'attente
+		if fileAttente == True :
+			#print("fileAttente")
 			self.listeAttenteLockAudio.append(id)
 			self.save()
 		
