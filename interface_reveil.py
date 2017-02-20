@@ -81,7 +81,7 @@ class InterfaceReveil:
 		print()
 		input("Appuyez sur entrée pour revenir au menu précédent")
 		print()
-		self.voirRapp()
+		self.voirRapp(0)
 
 
 	def modifierRappel(self,type):
@@ -131,10 +131,10 @@ class InterfaceReveil:
 	def menuModification(self,z,type):
 		# Menu permettant la modification d'un rappel
 		print()
-		print(str(self.rappel.listeDateHeure))
-		print(str(self.rappel.typeRappel))
-		print(str(self.rappel.listeCommandePart1))
-		print(str(self.rappel.listeCommandePart2))
+		#print(str(self.rappel.listeDateHeure))
+		#print(str(self.rappel.typeRappel))
+		#print(str(self.rappel.listeCommandePart1))
+		#print(str(self.rappel.listeCommandePart2))
 		print()
 		liste = ["Menu modifier rappel","Definir la date et/ou l'heure","Afficher les commandes de ce rappel","Ajouter des commandes","Supprimer des commandes","Modifier l'ordre des commandes"]
 		a = Outils.menu("MENU MODIFICATION D'UN RAPPEL",liste)
@@ -319,7 +319,8 @@ class InterfaceReveil:
 			print()
 			for i in range(0,b):
 				argument.append(input("Entrez l'argument n°"+str(1+i)+" : "))
-				print()
+				print("argument : "+str(argument))
+			print("argument : "+str(argument))
 			self.rappel.addCommande(self.conf.listeModule[a][0],argument ,part1)
 			print()
 			print("Commande ajoutée !")

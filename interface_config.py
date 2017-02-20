@@ -188,7 +188,10 @@ class InterfaceConfig:
 		if a == 0:
 			self.menuPrincipal()
 		elif a == 1:
+			self.conf.openConfig()
+			print("conf.lastId avant boutton : "+str(self.conf.lastId))
 			self.conf.setBouton(True)
+			print("conf.lastId avant boutton : "+str(self.conf.lastId))
 			print()
 			print()
 			self.gestionBouton()

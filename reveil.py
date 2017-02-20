@@ -79,8 +79,12 @@ class Reveil:
 
 	
 
-
-
+	def  createArgument(self,liste,type):
+		# Elle crée la première liste d'arguments au début
+		self.argumentsListe = []
+		self.append(type)
+		self.argumentsListe.extends(liste)
+		# A FINIR
 
 
 
@@ -88,13 +92,16 @@ class Reveil:
 		#  Permet d'oubrir le reveil donné en parametres et d'y lancer les fonctions
 		r = Rappel()
 		r.openRappel(type,listeDateHeure)
-		print("OuvreReveil")
+		#print("OuvreReveil")
 		# GESTION DE LA PARTIE 1 A FAIRE
 		continuer = True
 		while continuer:
 			#print("boucle")
 			for i in range(0,len(r.listeCommandePart1)):
+				#input("i : "+str(i))
 				self.lireConfig()
+				#print("i : "+str(i))
+				#print("conf.lastId reveil : "+str(self.conf.lastId))
 				if self.conf.bouton == False:
 					dossierModule = self.conf.getDossierModule(r.listeCommandePart1[i])
 					#print("Dossier : "+dossierModule)
@@ -105,36 +112,53 @@ class Reveil:
 						sys.path.remove(dossierModule)
 
 
-						try:
-							print("arguments : "+str(r.listeArgumentPart1[i]))
-							module.start(r.listeArgumentPart1[i])
-							self.suppressionModule()
-						except:
+						#try:
+							#print("arguments : "+str(r.listeArgumentPart1[i]))
+							#print("conf.lastId avant module : "+str(self.conf.lastId))
+						module.start(r.listeArgumentPart1[i])
+						
+							#print("conf.lastId apres module : "+str(self.conf.lastId))
+						self.suppressionModule()
+						#except:
 							# A METTRE DANS LE LOG
-							pass
+							#print("conf.lastId except : "+str(self.conf.lastId))
+							#pass
 				if self.conf.bouton:
+					#input("bouton")
 					self.conf.setBouton(False)
 					continuer = False
+					#print("conf.listeLancement : "+str(self.conf.listeAttenteLockAudio))
+					#print("break")
+					#input("bouton")
+					break
 			if len(r.listeArgumentPart1) == 0:
 				continuer = False
-
+		self.lireConfig()
+		#print("conf.listeLancement : "+str(self.conf.listeAttenteLockAudio))
 		#print("Rappel ouvert : "+str(len(r.listeCommandePart2)))
+		#print("PART 2")
+		#input("appuyez pour part2")
 		for i in range(0,len(r.listeCommandePart2)):
 			dossierModule = self.conf.getDossierModule(r.listeCommandePart2[i])
 			#print("Dossier : "+dossierModule)
 			if dossierModule != "":
-				print("arguments : "+str(r.listeArgumentPart2[i]))
+				#print("arguments : "+str(r.listeArgumentPart2[i]))
 				#module = __import__(dossierModule.replace(os.sep,"."),fromlist=[None])  # I don't understant that fromlist
 				sys.path.append(dossierModule)
+				self.lireConfig()
+				#print("conf.listeLancement : "+str(self.conf.listeAttenteLockAudio))
 				module = __import__("module",fromlist=[None])  # I don't understant that fromlist
 				sys.path.remove(dossierModule)
 
-				try:
-					module.start(r.listeArgumentPart2[i])
-					self.suppressionModule()
-				except:
+				#try:
+				#print("MODULE LANC")
+				module.start(r.listeArgumentPart2[i])
+				self.suppressionModule()
+				#except:
+				#	print("EXCEPTION")
+				#	print ("Unexpected error:", sys.exc_info()[0])
 					# A METTRE DANS LE LOG
-					pass
+				#	pass
 
 
 	def suppressionModule(self):

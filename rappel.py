@@ -27,7 +27,7 @@ class Rappel :
 		if (endroit == ""):
 			return False
 		if Outils.testPresence(endroit):
-			#print("Un fichier existe déja ici : "+endroit)
+			##print("Un fichier existe déja ici : "+endroit)
 			return False
 		chaine = "\n"
 		for i in range(0,len(self.listeCommandePart1)):
@@ -60,7 +60,7 @@ class Rappel :
 
 		elif (self.typeRappel == 2 and len(self.listeDateHeure) == 5):
 			endroit = str(self.listeDateHeure[0])+"_"+str(self.listeDateHeure[1])+"_"+str(self.listeDateHeure[2])+"_"+str(self.listeDateHeure[3])+"_"+str(self.listeDateHeure[4])+".f"
-		#print(endroit)
+		##print(endroit)
 		return endroit
 
 	def createPath(self,endroit):
@@ -72,13 +72,13 @@ class Rappel :
 			endroit = self.conf.pathReveilJour+endroit
 		if self.typeRappel == 2:
 			endroit = self.conf.pathReveilDate+endroit
-		#print(endroit)
+		##print(endroit)
 		return endroit
 
 
 	def openRappel(self,type,listeDateHeure):
 		# Ouvre le rappel si il existe
-		#print("openRappel")
+		##print("openRappel")
 		self.initialisation()
 		self.typeRappel = type
 		self.listeDateHeure = listeDateHeure
@@ -89,7 +89,7 @@ class Rappel :
 
 		if not Outils.testPresence(endroit):
 			return False
-		#print(endroit)
+		##print(endroit)
 		chaine = Outils.lireFichier(endroit)
 		chainePart1 = Outils.recupereBaliseAuto(chaine,"Part 1",1)
 		chainePart2 = Outils.recupereBaliseAuto(chaine,"Part 2",1)
@@ -97,10 +97,10 @@ class Rappel :
 		# A FINIR
 		for i in range(0,nb):
 			chaineModule = Outils.recupereBaliseAuto(chainePart1,"Module",i+1)
-			#print(chaineModule)
+			##print(chaineModule)
 			chaineNom = Outils.recupereBaliseAuto(chaineModule,"Nom",1)
 			arguments = []
-			nbArgument = Outils.compter(chainePart1,"<Argument>")
+			nbArgument = Outils.compter(chaineModule,"<Argument>")
 			for i2 in range (0,nbArgument):
 				arguments.append(Outils.recupereBaliseAuto(chaineModule,"Argument",i2+1))
 			self.addCommande(chaineNom,arguments)
@@ -111,14 +111,15 @@ class Rappel :
 			chaineModule = Outils.recupereBaliseAuto(chainePart2,"Module",i+1)
 			chaineNom = Outils.recupereBaliseAuto(chaineModule,"Nom",1)
 			arguments = []
-			nbArgument = Outils.compter(chainePart2,"<Argument>")
+			nbArgument = Outils.compter(chaineModule,"<Argument>")
 			for i2 in range (0,nbArgument):
 				arguments.append(Outils.recupereBaliseAuto(chaineModule,"Argument",i2+1))
 			self.addCommande(chaineNom,arguments,False)
-			#print("chaineNom dans rappel.py : "+chaineNom)
+			##print("chaineNom dans rappel.py : "+chaineNom)
 
 
-
+		#print("open réalisé : arguments part 1 : "+str(self.listeArgumentPart1)) 
+		#print("open réalisé : arguments part 2 : "+str(self.listeArgumentPart2)) 
 
 	def addCommande(self,nom,argument = [], part1=True):
 		# Permet d'ajouter une commande

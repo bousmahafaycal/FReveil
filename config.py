@@ -1,5 +1,6 @@
 from outils import *
 import os
+from time import sleep
 
 class Config:
 	# Classe permettant de gérer la configuration  du réveil.
@@ -101,7 +102,7 @@ class Config:
 			for i in range(Outils.compter(chaine,"<ListeAttenteRessourceAudio")):
 				chaine2 = Outils.recupereBaliseAuto(chaine, "ListeAttenteRessourceAudio", i+1)
 				self.listeAttenteLockAudio.append(int(chaine2))
-
+			#print("openConfig : "+str(self.listeAttenteLockAudio))
 			self.presence = Outils.recupereBaliseAuto(chaine, "Presence", 1, "Presence") == "True"
 			self.bouton = Outils.recupereBaliseAuto(chaine, "Bouton", 1) == "True"
 			self.lockAudio = Outils.recupereBaliseAuto(chaine, "RessourceAudio", 1) == "True"
@@ -117,20 +118,24 @@ class Config:
 
 	def setPresence(self, presence):
 		# Modifie si l'utilisateur est présent ou pas.
+		self.openConfig()
 		self.presence = presence
 		self.save()
 		# LOG A FAIRE
 
 	def setBouton(self, bouton):
 		# Modifie si l'utilisateur est présent ou pas.
+		self.openConfig()
 		self.bouton = bouton
 		self.save()
 		# LOG A FAIRE
 
 	def getId(self):
 		# Va donner un id au module
+		self.openConfig()
 		self.lastId += 1
 		self.save()
+		##print("lastId : "+str(self.lastId))
 		return self.lastId - 1
 
 	def setLockAudio(self,valeur,id):
@@ -145,11 +150,13 @@ class Config:
 				self.lockAudio = valeur
 				self.save()
 				#print("setLockAudio: "+str(self.listeAttenteLockAudio))
+				sleep(0.2)
 				return 1
 			elif id == self.listeAttenteLockAudio[0]:
 				self.lockAudio = valeur
 				self.save()
 				#print("Facilité")
+				sleep(0.2)
 				return 1
 			elif id not in self.listeAttenteLockAudio and valeur:
 				#print("file1")
@@ -160,6 +167,7 @@ class Config:
 				fileAttente = True
 
 			elif (valeur) and id == self.listeAttenteLockAudio[0]: # Si on demande à avoir le lock alors qu'on l'a déja. Cas qui ne devrait pas se présenter mais on sait jamais
+				sleep(0.2)
 				return 1
 			
 
@@ -168,6 +176,7 @@ class Config:
 				self.lockAudio = valeur
 				self.save()
 				#print("On lache le setLockAudio: "+str(self.listeAttenteLockAudio))
+				sleep(0.2)
 				return 2
 			elif id not  in self.listeAttenteLockAudio:
 				#print("file3")
@@ -178,7 +187,7 @@ class Config:
 			#print("fileAttente")
 			self.listeAttenteLockAudio.append(id)
 			self.save()
-		
+		sleep(0.2)
 		return 3 # soit on vient de l'inserer dans la file d'attente, soit il y est déja
 
 	def save(self):

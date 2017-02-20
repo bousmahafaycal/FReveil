@@ -3,6 +3,7 @@ avec des fonctions définies """
 from outils import * 
 import os,time 
 from config import *
+from time import sleep
 
 class Synthese :
 
@@ -138,18 +139,32 @@ class Synthese :
 	def synthese(self,chaine):
 		# Synthese vocale avec le gestionnaire de ressources audio
 		conf = Config ()
+		#print("LastId synthese : "+str(conf.lastId))
+		#print(Outils.lireFichier("Donnees/Config/config.f"))
+		#input("SYNTHESE : appuyez")
+		#print("conf.listeLancement : "+str(conf.listeAttenteLockAudio))
 		id = conf.getId()
+		#print("id synthese : "+str(id))
+		#print("conf.listeLancement2 : "+str(conf.listeAttenteLockAudio))
+		#input("SYNTHESE BEFORE")
+		#sleep(0.5)
 		a =  0
 		while a != 1:
 			a = conf.setLockAudio(True,id)
-			time.sleep(0.2)
+			conf.openConfig()
+			time.sleep(1)
 		self.syntheseLecture(chaine)
-
+		conf.openConfig()
+		#print("conf.listeLancement3 : "+str(conf.listeAttenteLockAudio))
 		conf.setLockAudio(False,id)
+		conf.openConfig()
+		#print("conf.listeLancement4 : "+str(conf.listeAttenteLockAudio))
+		#input("SYNTHESE AFTER")
+		#sleep(0.5)
 
 
 	def syntheseLecture(self,chaine):
-		print("synthese lecture")
+		#print("synthese lecture")
 		liste = self.separation(chaine)
 		a = len(liste)
 		for i in range (0,a):

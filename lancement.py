@@ -3,6 +3,7 @@ from threading import Thread
 from reveil import *
 from time import *
 from arduino import *
+from config import *
 
 """def boucleReveil():
 	r = Reveil()
@@ -20,6 +21,9 @@ class ThreadArduino(Thread):
 	def run(self):
 		a = Arduino()
 		a.serveur()
+
+conf =  Config()
+conf.cleanUpAudio()
 
 a = ThreadReveil()
 b = ThreadArduino()
