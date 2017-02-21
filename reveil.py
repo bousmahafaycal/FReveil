@@ -79,11 +79,16 @@ class Reveil:
 
 	
 
-	def  createArgument(self,liste,type):
+	def  createArgument(self, dossierModule, type, listeDateHeure, arguments):
 		# Elle crée la première liste d'arguments au début
-		self.argumentsListe = []
-		self.append(type)
-		self.argumentsListe.extends(liste)
+		argumentsListe = []
+		argumentsListe.append(dossierModule)
+		argumentsListe.append(type)
+		argumentsListe.extend(listeDateHeure)
+		liste = []
+		liste.append(argumentsListe)
+		liste.extend(arguments)
+		return liste
 		# A FINIR
 
 
@@ -115,7 +120,7 @@ class Reveil:
 						#try:
 							#print("arguments : "+str(r.listeArgumentPart1[i]))
 							#print("conf.lastId avant module : "+str(self.conf.lastId))
-						module.start(r.listeArgumentPart1[i])
+						module.start(self.createArgument(dossierModule,type,listeDateHeure,r.listeArgumentPart1[i]))
 						
 							#print("conf.lastId apres module : "+str(self.conf.lastId))
 						self.suppressionModule()
@@ -152,7 +157,7 @@ class Reveil:
 
 				#try:
 				#print("MODULE LANC")
-				module.start(r.listeArgumentPart2[i])
+				module.start(self.createArgument(dossierModule,type,listeDateHeure,r.listeArgumentPart2[i]))
 				self.suppressionModule()
 				#except:
 				#	print("EXCEPTION")
