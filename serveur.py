@@ -7,7 +7,7 @@ from rappel import *
 
 class Serveur:
 
-    def messageRecu(message):
+    def messageRecu(self,message):
         # Recupere la chaine et renvoie la réponsee
         print("messageRecu")
         chaine = ""
