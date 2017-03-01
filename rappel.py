@@ -75,22 +75,8 @@ class Rappel :
 		##print(endroit)
 		return endroit
 
-
-	def openRappel(self,type,listeDateHeure):
-		# Ouvre le rappel si il existe
-		##print("openRappel")
-		self.initialisation()
-		self.typeRappel = type
-		self.listeDateHeure = listeDateHeure
-		endroit = self.getEndroit()
-		if (endroit == ""):
-			return False
-		endroit = self.createPath(endroit)
-
-		if not Outils.testPresence(endroit):
-			return False
-		##print(endroit)
-		chaine = Outils.lireFichier(endroit)
+	def openChaine(self,chaine):
+		# Ouvre un rappel à partir d'une chaine contenant toutes les données
 		chainePart1 = Outils.recupereBaliseAuto(chaine,"Part 1",1)
 		chainePart2 = Outils.recupereBaliseAuto(chaine,"Part 2",1)
 		nb = Outils.compter(chainePart1,"<Module>")
@@ -115,6 +101,24 @@ class Rappel :
 			for i2 in range (0,nbArgument):
 				arguments.append(Outils.recupereBaliseAuto(chaineModule,"Argument",i2+1))
 			self.addCommande(chaineNom,arguments,False)
+
+	def openRappel(self,type,listeDateHeure):
+		# Ouvre le rappel si il existe
+		##print("openRappel")
+		self.initialisation()
+		self.typeRappel = type
+		self.listeDateHeure = listeDateHeure
+		endroit = self.getEndroit()
+		if (endroit == ""):
+			return False
+		endroit = self.createPath(endroit)
+
+		if not Outils.testPresence(endroit):
+			return False
+		##print(endroit)
+		chaine = Outils.lireFichier(endroit)
+		openChaine(chaine)
+		return True
 			##print("chaineNom dans rappel.py : "+chaineNom)
 
 
