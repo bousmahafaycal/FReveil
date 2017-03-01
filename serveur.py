@@ -65,7 +65,9 @@ class Serveur:
                     if msg_recu.decode() != "":
                         print("Recu {}".format(msg_recu.decode()))
                         try :
-                            chaine = bytes(messageRecu(msg_recu.decode()).encode('UTF-8'))
+                            chaine = messageRecu(msg_recu.decode())
+                            print("chaine:"+chaine)
+                            chaine = bytes(chaine.encode('UTF-8'))
                             client.send(chaine)
                         except :
                             pass
