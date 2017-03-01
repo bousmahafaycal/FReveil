@@ -79,6 +79,13 @@ class Rappel :
 		# Ouvre un rappel à partir d'une chaine contenant toutes les données
 		chainePart1 = Outils.recupereBaliseAuto(chaine,"Part 1",1)
 		chainePart2 = Outils.recupereBaliseAuto(chaine,"Part 2",1)
+		if chaine.indexOf("<Type>") != -1:
+			self.typeRappel = int(Outils.recupereBaliseAuto(chaine,"Type",1))
+			nb = Outils.compter(chainePart1,"<ListeDateHeure>")
+			for i in range (0,nb):
+				self.ListeDateHeure.append(int(Outils.recupereBaliseAuto(chaine,"ListeDateHeure",i+1)))
+
+
 		nb = Outils.compter(chainePart1,"<Module>")
 		# A FINIR
 		for i in range(0,nb):
