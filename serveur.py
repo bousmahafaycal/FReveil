@@ -70,7 +70,7 @@ class Serveur:
                     if msg_recu.decode() != "":
                         print("Recu {}".format(msg_recu.decode()))
                         try :
-                            chaine = messageRecu(msg_recu.decode())
+                            chaine = self.messageRecu(msg_recu.decode())
                             print("chaine:"+chaine)
                             chaine = bytes(chaine.encode('UTF-8'))
                             client.send(chaine)
