@@ -9,10 +9,11 @@ class Serveur:
 
     def messageRecu(message):
         # Recupere la chaine et renvoie la réponsee
+        print("messageRecu")
         chaine = ""
         if Outils.recupereBaliseAuto(message,"c",1) == "connexion":
             chaine = "Vous êtes bien connecté"
-        if Outils.recupereBaliseAuto(message,"c",1) == "ajoutRappel":
+        elif Outils.recupereBaliseAuto(message,"c",1) == "ajoutRappel":
             r = Rappel()
             try:
                 r.openChaine(message)
@@ -20,7 +21,7 @@ class Serveur:
             except:
                 print("LOL")
             chaine = "Rappel ajouté"
-        
+        print("messageRecu2")
         chaine = chaine.replace("\n","[n]")
         chaine +="\ntest"
         return chaine
