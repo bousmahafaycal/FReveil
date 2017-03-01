@@ -77,9 +77,10 @@ class Rappel :
 
 	def openChaine(self,chaine):
 		# Ouvre un rappel à partir d'une chaine contenant toutes les données
+		self.initialisation()
 		chainePart1 = Outils.recupereBaliseAuto(chaine,"Part 1",1)
 		chainePart2 = Outils.recupereBaliseAuto(chaine,"Part 2",1)
-		if chaine.indexOf("<Type>") != -1:
+		if Outils.compter(chaine,"<Type>") != 0:
 			self.typeRappel = int(Outils.recupereBaliseAuto(chaine,"Type",1))
 			nb = Outils.compter(chainePart1,"<ListeDateHeure>")
 			for i in range (0,nb):

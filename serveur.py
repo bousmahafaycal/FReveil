@@ -15,11 +15,8 @@ class Serveur:
             chaine = "Vous êtes bien connecté"
         elif Outils.recupereBaliseAuto(message,"c",1) == "ajoutRappel":
             r = Rappel()
-            try:
-                r.openChaine(message)
-                r.save()
-            except:
-                print("LOL")
+            r.openChaine(message)
+            r.save()
             chaine = "Rappel ajouté"
         print("messageRecu2")
         chaine = chaine.replace("\n","[n]")
