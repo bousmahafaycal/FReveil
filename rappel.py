@@ -46,6 +46,8 @@ class Rappel :
 			chaine += Outils.constitueBalise("Module",chaine2)+"\n"
 
 		chaine3 += Outils.constitueBalise("Part 2",chaine)+"\n"
+		print("chaine32 ; "+chaine3)
+		print("endroit : "+endroit)
 		Outils.ecrireFichier(endroit,chaine3)
 		return True
 
