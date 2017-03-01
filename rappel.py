@@ -30,13 +30,14 @@ class Rappel :
 			##print("Un fichier existe déja ici : "+endroit)
 			return False
 		chaine = "\n"
+		print("RETURN PASSE")
 		for i in range(0,len(self.listeCommandePart1)):
 			chaine2 = Outils.constitueBalise("Nom",self.listeCommandePart1[i])
 			for i2 in range(0,len(self.listeArgumentPart1[i])):
 				chaine2+= Outils.constitueBalise("Argument", self.listeArgumentPart1[i][i2])
 			chaine += Outils.constitueBalise("Module",chaine2)+"\n"
 		chaine3 = Outils.constitueBalise("Part 1",chaine)+"\n\n"
-
+		print("chaine3 ; "+chaine3)
 		chaine = "\n"
 		for i in range(0,len(self.listeCommandePart2)):
 			chaine2 = Outils.constitueBalise("Nom",self.listeCommandePart2[i])
