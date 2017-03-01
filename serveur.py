@@ -14,11 +14,15 @@ class Serveur:
             chaine = "Vous êtes bien connecté"
         if Outils.recupereBaliseAuto(message,"c",1) == "ajoutRappel":
             r = Rappel()
-            r.openChaine(message)
-            r.save()
+            try:
+                r.openChaine(message)
+                r.save()
+            except:
+                print("LOL")
             chaine = "Rappel ajouté"
         
-        chaine = chaine.replace("\n","[n]")+"\n"
+        chaine = chaine.replace("\n","[n]")
+        chaine +="\ntest"
         return chaine
 
         
