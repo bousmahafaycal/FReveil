@@ -5,10 +5,7 @@ import select
 from outils import *
 from rappel import *
 
-class serveurAClients:
-
-
-
+class Serveur:
 
     def messageRecu(message):
         # Recupere la chaine et renvoie la réponsee

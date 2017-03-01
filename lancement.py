@@ -4,6 +4,7 @@ from reveil import *
 from time import *
 from arduino import *
 from config import *
+from serveur import *
 
 """def boucleReveil():
 	r = Reveil()
@@ -22,17 +23,25 @@ class ThreadArduino(Thread):
 		a = Arduino()
 		a.serveur()
 
+class ThreadServeur(Thread):
+	def run(self):
+		a = Serveur()
+		a.boucleInfinie()
+
 conf =  Config()
 conf.cleanUpAudio()
 
 a = ThreadReveil()
 b = ThreadArduino()
+c = ThreadServeur()
 
 a.start()
 b.start ()
+c.start()
 
 a.join()
 b.join()
+c.join()
 
 
 
