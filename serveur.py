@@ -16,7 +16,7 @@ class Serveur:
         elif Outils.recupereBaliseAuto(message,"c",1) == "ajoutRappel":
             r = Rappel()
             print("rappel")
-            r.openChaine(message)
+            r.openChaine(Outils.recupereBaliseAuto(message,"a",1))
             print("rappel2")
             r.save()
             chaine = "Rappel ajouté"

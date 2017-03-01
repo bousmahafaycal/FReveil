@@ -23,6 +23,7 @@ class Rappel :
 
 	def save(self):
 		# Sauvegarde le rappel
+		print("LOL"+self.getEndroit())
 		endroit = self.createPath(self.getEndroit())
 		if (endroit == ""):
 			return False
@@ -83,15 +84,17 @@ class Rappel :
 		self.initialisation()
 		chainePart1 = Outils.recupereBaliseAuto(chaine,"Part 1",1)
 		chainePart2 = Outils.recupereBaliseAuto(chaine,"Part 2",1)
-		print("compter"+Outils.compter(chaine,"<Type>"))
+		print("chaine ; "+chaine)
+		print("compter"+str(Outils.compter(chaine,"<Type>")))
 		if Outils.compter(chaine,"<Type>") != 0:
 
 			self.typeRappel = int(Outils.recupereBaliseAuto(chaine,"Type",1))
-			nb = Outils.compter(chainePart1,"<ListeDateHeure>")
+			nb = Outils.compter(chaine,"<ListeDateHeure>")
 			for i in range (0,nb):
-				self.ListeDateHeure.append(int(Outils.recupereBaliseAuto(chaine,"ListeDateHeure",i+1)))
+				print("ListeDATEherure :"+Outils.recupereBaliseAuto(chaine,"ListeDateHeure",i+1))
+				self.listeDateHeure.append(int(Outils.recupereBaliseAuto(chaine,"ListeDateHeure",i+1)))
 
-		print(""+str(self.typeRappel)+" : "+str(self.listeDateHeure))
+		print("TYPE "+str(self.typeRappel)+" :LISTE: "+str(self.listeDateHeure))
 		nb = Outils.compter(chainePart1,"<Module>")
 		# A FINIR
 		for i in range(0,nb):
