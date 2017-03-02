@@ -133,7 +133,7 @@ class Rappel :
 			return False
 		##print(endroit)
 		chaine = Outils.lireFichier(endroit)
-		openChaine(chaine)
+		self.openChaine(chaine)
 		return True
 			##print("chaineNom dans rappel.py : "+chaineNom)
 
