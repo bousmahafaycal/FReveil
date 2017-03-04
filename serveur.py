@@ -22,10 +22,33 @@ class Serveur:
             r.openChaine(Outils.recupereBaliseAuto(message,"a",1))
             #print("rappel2")
             reussi = r.save()
-            if (reussi)
+            if (reussi):
                 chaine = "1" # Ajout de rappel réussi
-            else 
+            else :
                 chaine = "2" # Ajout de rappel pas réussi
+
+
+        elif Outils.recupereBaliseAuto(message,"c",1) == "modifieRappel":
+            argument = Outils.recupereBaliseAuto(message,"a",1)
+            r = Rappel()
+            r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",1))
+            endroit = r.getEndroit()
+            if (endroit == ""):
+                return "6" # Modification de rappel pas réussi
+            endroit = r.createPath(endroit)
+
+            if not Outils.testPresence(endroit):
+                return "6" # Modification de rappel pas réussi
+
+            supression = Outils.recupereBaliseAuto(argument,"Supression",1)
+            l = ListeRappel(int(Outils.recupereBaliseAuto(supression,"Type",1)))
+            iden = l.getIdRappel(Outils.recupereBaliseAuto(supression,"Nom",1))
+            l.delRappel(iden)
+             if (r.save()):
+                chaine = "5" # Modification de rappel réussie
+            else :
+                chaine = "6" # Modification de rappel pas réussi
+
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "supprimeRappel":
             argument = Outils.recupereBaliseAuto(message,"a",1)
