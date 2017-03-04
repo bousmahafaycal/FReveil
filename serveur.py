@@ -4,26 +4,47 @@ import socket
 import select
 from outils import *
 from rappel import *
+from config import *
+from liste_rappel import *
 
 class Serveur:
 
     def messageRecu(self,message):
         # Recupere la chaine et renvoie la réponsee
-        print("messageRecu")
+        #print("messageRecu")
         chaine = ""
         if Outils.recupereBaliseAuto(message,"c",1) == "connexion":
-            chaine = "Vous êtes bien connecté"
+            chaine = "0"
         elif Outils.recupereBaliseAuto(message,"c",1) == "ajoutRappel":
             r = Rappel()
-            print("rappel")
+            #print("rappel")
             r.openChaine(Outils.recupereBaliseAuto(message,"a",1))
-            print("rappel2")
-            r.save()
-            chaine = "Rappel ajouté"
-        print("messageRecu2")
+            #print("rappel2")
+            reussi = r.save()
+            if (reussi)
+                chaine = "1" # Ajout de rappel réussi
+            else 
+                chaine = "2" # Ajout de rappel pas réussi
+        
+        elif Outils.recupereBaliseAuto(message,"c",1) == "getCommande":
+            c= Config()
+            chaine = listToString(c.listeModule)
+
+        elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelUnique":
+
+        #print("messageRecu2")
         chaine = chaine.replace("\n","[n]")
-        chaine +="\ntest"
+        chaine +="\n"
         return chaine
+
+
+    def listToString(liste):
+        # Fonction qui renvoie une chaine a partir d'une liste ou chaque item est dans la balise <i>
+        chaine = ""
+        for i in range(len(liste)):
+            chaine += Outils.constitueBalise("i",chaine)
+        return chaine
+
 
         
 
