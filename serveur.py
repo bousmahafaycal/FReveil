@@ -15,6 +15,7 @@ class Serveur:
         chaine = ""
         if Outils.recupereBaliseAuto(message,"c",1) == "connexion":
             chaine = "0"
+
         elif Outils.recupereBaliseAuto(message,"c",1) == "ajoutRappel":
             r = Rappel()
             #print("rappel")
@@ -25,12 +26,33 @@ class Serveur:
                 chaine = "1" # Ajout de rappel réussi
             else 
                 chaine = "2" # Ajout de rappel pas réussi
+
+        elif Outils.recupereBaliseAuto(message,"c",1) == "supprimeRappel":
+            argument = Outils.recupereBaliseAuto(message,"a",1)
+            l = ListeRappel(int(Outils.recupereBaliseAuto(argument,"Type",1)))
+            iden = l.getIdRappel(Outils.recupereBaliseAuto(argument,"Nom",1))
+            if iden != -1:
+                l.delRappel(iden)
+                chaine = "3" # Suppression de rappel réussie
+            else :
+                chaine = "4" # Suppression de rappel pas réussie
+            
         
         elif Outils.recupereBaliseAuto(message,"c",1) == "getCommande":
             c= Config()
             chaine = listToString(c.listeModule)
 
+        elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelJournalier":
+            l = ListeRappel(0)
+            chaine = listToString(l.getListe())
+
+        elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelHebdomadaire":
+            l = ListeRappel(1)
+            chaine = listToString(l.getListe())
+
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelUnique":
+            l = ListeRappel(2)
+            chaine = listToString(l.getListe())
 
         #print("messageRecu2")
         chaine = chaine.replace("\n","[n]")

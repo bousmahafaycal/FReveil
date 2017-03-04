@@ -30,7 +30,7 @@ class ListeRappel:
 		rappel = self.getRappel(id)
 		endroit = rappel.createPath(rappel.getEndroit())
 		Outils.supprimerFichier(endroit)
-		print("Ce fichier est supprimé : "+endroit)
+		#print("Ce fichier est supprimé : "+endroit)
 
 
 	def getListeRappel(self):
