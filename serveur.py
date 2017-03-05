@@ -91,7 +91,7 @@ class Serveur:
         # Fonction qui renvoie une chaine a partir d'une liste ou chaque item est dans la balise <i>
         chaine = ""
         for i in range(len(liste)):
-            chaine += Outils.constitueBalise("i",chaine)
+            chaine += Outils.constitueBalise("i",liste[i])
         return chaine
 
 
