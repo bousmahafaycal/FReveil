@@ -44,10 +44,10 @@ class Serveur:
             l = ListeRappel(int(Outils.recupereBaliseAuto(supression,"Type",1)))
             iden = l.getIdRappel(Outils.recupereBaliseAuto(supression,"Nom",1))
             l.delRappel(iden)
-             if (r.save()):
+            if (r.save()):
                 chaine = "5" # Modification de rappel réussie
             else :
-                chaine = "6" # Modification de rappel pas réussi
+                chaine = "7" # Modification de rappel pas réussi mais la supression a été réalisée
 
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "supprimeRappel":
@@ -76,6 +76,10 @@ class Serveur:
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelUnique":
             l = ListeRappel(2)
             chaine = listToString(l.getListe())
+
+        elif Outils.recupereBaliseAuto(message,"c",1) == "getRappel":
+            l = ListeRappel(2)
+            r  = l.getRappel()
 
         #print("messageRecu2")
         chaine = chaine.replace("\n","[n]")
