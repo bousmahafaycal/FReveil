@@ -18,6 +18,7 @@ class ListeRappel:
 			liste = Outils.getDossier(self.conf.pathReveilJour)
 		else :
 			liste  = Outils.getDossier(self.conf.pathReveilDate)
+		#print("LISTE : "+str(liste))
 		return liste
 
 	def afficherRappel(self,id):
@@ -31,6 +32,27 @@ class ListeRappel:
 		endroit = rappel.createPath(rappel.getEndroit())
 		Outils.supprimerFichier(endroit)
 		#print("Ce fichier est supprimé : "+endroit)
+
+	def delRappelFichier(self,chaine):
+		# Permet de supprimer un rappel, en supprimant physiquement le fichier correspondant
+		liste = self.getListe()
+		#print("Liste : "+str(liste))
+		#print("chaine ;" +chaine)
+		id = -1
+		for i in range(len(liste)):
+			if liste[i] == chaine:
+				id = i;
+
+		#print("id ; "+str(id))
+		if id == -1 :
+			return False
+		rappel = self.getRappelListe(id,liste)
+		#print("endroit;"+rappel.getEndroit())
+		#print("path,;"+rappel.createPath(rappel.getEndroit()))
+		endroit = rappel.createPath(rappel.getEndroit())
+		Outils.supprimerFichier(endroit)
+		#print("Ce fichier est supprimé : "+endroit)
+		return True
 
 
 	def getListeRappel(self):
@@ -49,9 +71,17 @@ class ListeRappel:
 		listeDateHeure =  nom.split("_")
 		return self.getRappelFromList(listeDateHeure)
 
+	def getRappelListe(self, id, liste ):
+		# return un rappel avec l'id du fichier demander
+		nom = liste[id]
+		nom = nom.replace(".f","")
+		listeDateHeure =  nom.split("_")
+		return self.getRappelFromList(listeDateHeure)
+
 	def getRappelFromList(self,listeDateHeure):
 		# A partir d'une liste on recuperere le rappel
 		rappel = Rappel()
+		#print(str(self.type)+" ;;; "+str(listeDateHeure))
 		rappel.openRappel(self.type,listeDateHeure)
 		return rappel
 
@@ -63,12 +93,4 @@ class ListeRappel:
 			if liste[i] == rappel:
 				return i
 		return -1
-
-	def getIdRappelFichier(self,chaine):
-		# Renvoie un id de rappel à partir du nom de fichier
-		liste = self.getListe()
-		for i in range(len(liste)):
-			if liste[i] == chaine:
-				return i;
-
-		return -1
+		

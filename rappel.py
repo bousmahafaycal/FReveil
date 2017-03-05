@@ -23,22 +23,22 @@ class Rappel :
 
 	def save(self):
 		# Sauvegarde le rappel
-		print("LOL"+self.getEndroit())
+		#print("LOL"+self.getEndroit())
 		endroit = self.createPath(self.getEndroit())
 		if (endroit == ""):
 			return False
 		if Outils.testPresence(endroit):
-			##print("Un fichier existe déja ici : "+endroit)
+			###print("Un fichier existe déja ici : "+endroit)
 			return False
 		chaine = "\n"
-		print("RETURN PASSE")
+		#print("RETURN PASSE")
 		for i in range(0,len(self.listeCommandePart1)):
 			chaine2 = Outils.constitueBalise("Nom",self.listeCommandePart1[i])
 			for i2 in range(0,len(self.listeArgumentPart1[i])):
 				chaine2+= Outils.constitueBalise("Argument", self.listeArgumentPart1[i][i2])
 			chaine += Outils.constitueBalise("Module",chaine2)+"\n"
 		chaine3 = Outils.constitueBalise("Part 1",chaine)+"\n\n"
-		print("chaine3 ; "+chaine3)
+		#print("chaine3 ; "+chaine3)
 		chaine = "\n"
 		for i in range(0,len(self.listeCommandePart2)):
 			chaine2 = Outils.constitueBalise("Nom",self.listeCommandePart2[i])
@@ -47,8 +47,8 @@ class Rappel :
 			chaine += Outils.constitueBalise("Module",chaine2)+"\n"
 
 		chaine3 += Outils.constitueBalise("Part 2",chaine)+"\n"
-		print("chaine32 ; "+chaine3)
-		print("endroit : "+endroit)
+		#print("chaine32 ; "+chaine3)
+		#print("endroit : "+endroit)
 		Outils.ecrireFichier(endroit,chaine3)
 		return True
 
@@ -64,7 +64,8 @@ class Rappel :
 
 		elif (self.typeRappel == 2 and len(self.listeDateHeure) == 5):
 			endroit = str(self.listeDateHeure[0])+"_"+str(self.listeDateHeure[1])+"_"+str(self.listeDateHeure[2])+"_"+str(self.listeDateHeure[3])+"_"+str(self.listeDateHeure[4])+".f"
-		##print(endroit)
+		print("###endroit "+endroit)
+		print("typeRappel")
 		return endroit
 
 	def createPath(self,endroit):
@@ -76,30 +77,31 @@ class Rappel :
 			endroit = self.conf.pathReveilJour+endroit
 		if self.typeRappel == 2:
 			endroit = self.conf.pathReveilDate+endroit
-		##print(endroit)
+		###print(endroit)
 		return endroit
 
-	def openChaine(self,chaine):
+	def openChaine(self,chaine,initialisation = False):
 		# Ouvre un rappel à partir d'une chaine contenant toutes les données
-		self.initialisation()
+		if (initialisation):
+			self.initialisation()
 		chainePart1 = Outils.recupereBaliseAuto(chaine,"Part 1",1)
 		chainePart2 = Outils.recupereBaliseAuto(chaine,"Part 2",1)
-		print("chaine ; "+chaine)
-		print("compter"+str(Outils.compter(chaine,"<Type>")))
+		#print("chaine ; "+chaine)
+		#print("compter"+str(Outils.compter(chaine,"<Type>")))
 		if Outils.compter(chaine,"<Type>") != 0:
 
 			self.typeRappel = int(Outils.recupereBaliseAuto(chaine,"Type",1))
 			nb = Outils.compter(chaine,"<ListeDateHeure>")
 			for i in range (0,nb):
-				print("ListeDATEherure :"+Outils.recupereBaliseAuto(chaine,"ListeDateHeure",i+1))
+				#print("ListeDATEherure :"+Outils.recupereBaliseAuto(chaine,"ListeDateHeure",i+1))
 				self.listeDateHeure.append(int(Outils.recupereBaliseAuto(chaine,"ListeDateHeure",i+1)))
 
-		print("TYPE "+str(self.typeRappel)+" :LISTE: "+str(self.listeDateHeure))
+		#print("TYPE "+str(self.typeRappel)+" :LISTE: "+str(self.listeDateHeure))
 		nb = Outils.compter(chainePart1,"<Module>")
 		# A FINIR
 		for i in range(0,nb):
 			chaineModule = Outils.recupereBaliseAuto(chainePart1,"Module",i+1)
-			##print(chaineModule)
+			###print(chaineModule)
 			chaineNom = Outils.recupereBaliseAuto(chaineModule,"Nom",1)
 			arguments = []
 			nbArgument = Outils.compter(chaineModule,"<Argument>")
@@ -120,26 +122,29 @@ class Rappel :
 
 	def openRappel(self,type,listeDateHeure):
 		# Ouvre le rappel si il existe
-		##print("openRappel")
+		###print("openRappel")
 		self.initialisation()
 		self.typeRappel = type
 		self.listeDateHeure = listeDateHeure
 		endroit = self.getEndroit()
+		print("ENDroiT1 "+endroit)
 		if (endroit == ""):
 			return False
 		endroit = self.createPath(endroit)
+		print("ENDroiT2 "+endroit)
 
 		if not Outils.testPresence(endroit):
 			return False
-		##print(endroit)
+		###print(endroit)
 		chaine = Outils.lireFichier(endroit)
 		self.openChaine(chaine)
+		print("RETURN TRUE")
 		return True
-			##print("chaineNom dans rappel.py : "+chaineNom)
+			###print("chaineNom dans rappel.py : "+chaineNom)
 
 
-		#print("open réalisé : arguments part 1 : "+str(self.listeArgumentPart1)) 
-		#print("open réalisé : arguments part 2 : "+str(self.listeArgumentPart2)) 
+		##print("open réalisé : arguments part 1 : "+str(self.listeArgumentPart1)) 
+		##print("open réalisé : arguments part 2 : "+str(self.listeArgumentPart2)) 
 
 	def addCommande(self,nom,argument = [], part1=True):
 		# Permet d'ajouter une commande

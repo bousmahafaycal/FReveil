@@ -31,7 +31,7 @@ class Serveur:
         elif Outils.recupereBaliseAuto(message,"c",1) == "modifieRappel":
             argument = Outils.recupereBaliseAuto(message,"a",1)
             r = Rappel()
-            r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",1))
+            r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",1),True)
             endroit = r.getEndroit()
             if (endroit == ""):
                 return "6" # Modification de rappel pas réussi
@@ -42,20 +42,18 @@ class Serveur:
 
             supression = Outils.recupereBaliseAuto(argument,"Supression",1)
             l = ListeRappel(int(Outils.recupereBaliseAuto(supression,"Type",1)))
-            iden = l.getIdRappelFichier(Outils.recupereBaliseAuto(supression,"Nom",1))
-            l.delRappel(iden)
-            if (r.save()):
+            if (l.delRappelFichier(Outils.recupereBaliseAuto(supression,"Nom",1))):
                 chaine = "5" # Modification de rappel réussie
             else :
                 chaine = "7" # Modification de rappel pas réussi mais la supression a été réalisée
 
 
+
         elif Outils.recupereBaliseAuto(message,"c",1) == "supprimeRappel":
             argument = Outils.recupereBaliseAuto(message,"a",1)
             l = ListeRappel(int(Outils.recupereBaliseAuto(argument,"Type",1)))
-            iden = l.getIdRappelFichier(Outils.recupereBaliseAuto(argument,"Nom",1))
-            if iden != -1:
-                l.delRappel(iden)
+            reussi = l.delRappelFichier(Outils.recupereBaliseAuto(argument,"Nom",1))
+            if reussi:
                 chaine = "3" # Suppression de rappel réussie
             else :
                 chaine = "4" # Suppression de rappel pas réussie
