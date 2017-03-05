@@ -87,7 +87,7 @@ class Serveur:
         return chaine
 
 
-    def listToString(liste):
+    def listToString(self,liste):
         # Fonction qui renvoie une chaine a partir d'une liste ou chaque item est dans la balise <i>
         chaine = ""
         print("createString")
