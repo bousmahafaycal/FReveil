@@ -63,3 +63,12 @@ class ListeRappel:
 			if liste[i] == rappel:
 				return i
 		return -1
+
+	def getIdRappelFichier(self,chaine):
+		# Renvoie un id de rappel à partir du nom de fichier
+		liste = self.getListe()
+		for i in range(len(liste)):
+			if liste[i] == chaine:
+				return i;
+
+		return -1

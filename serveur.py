@@ -11,7 +11,7 @@ class Serveur:
 
     def messageRecu(self,message):
         # Recupere la chaine et renvoie la réponsee
-        #print("messageRecu")
+        print("messageRecu")
         chaine = ""
         if Outils.recupereBaliseAuto(message,"c",1) == "connexion":
             chaine = "0"
@@ -42,7 +42,7 @@ class Serveur:
 
             supression = Outils.recupereBaliseAuto(argument,"Supression",1)
             l = ListeRappel(int(Outils.recupereBaliseAuto(supression,"Type",1)))
-            iden = l.getIdRappel(Outils.recupereBaliseAuto(supression,"Nom",1))
+            iden = l.getIdRappelFichier(Outils.recupereBaliseAuto(supression,"Nom",1))
             l.delRappel(iden)
             if (r.save()):
                 chaine = "5" # Modification de rappel réussie
@@ -53,7 +53,7 @@ class Serveur:
         elif Outils.recupereBaliseAuto(message,"c",1) == "supprimeRappel":
             argument = Outils.recupereBaliseAuto(message,"a",1)
             l = ListeRappel(int(Outils.recupereBaliseAuto(argument,"Type",1)))
-            iden = l.getIdRappel(Outils.recupereBaliseAuto(argument,"Nom",1))
+            iden = l.getIdRappelFichier(Outils.recupereBaliseAuto(argument,"Nom",1))
             if iden != -1:
                 l.delRappel(iden)
                 chaine = "3" # Suppression de rappel réussie
@@ -66,8 +66,11 @@ class Serveur:
             chaine = self.listToString(c.listeModule)
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelJournalier":
+            print("rappeljournalier")
             l = ListeRappel(0)
+            print("listerappel créee")
             chaine = self.listToString(l.getListe())
+            print("AAAA"+str(l.getListe()))
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelHebdomadaire":
             l = ListeRappel(1)
@@ -79,9 +82,9 @@ class Serveur:
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappel":
             l = ListeRappel(2)
-            r  = l.getRappel()
+            #r  = l.getRappel()
 
-        #print("messageRecu2")
+        print("messageRecu2")
         chaine = chaine.replace("\n","[n]")
         chaine +="\n"
         return chaine
