@@ -64,11 +64,8 @@ class Serveur:
             chaine = self.listToString(c.listeModule)
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelJournalier":
-            print("rappeljournalier")
             l = ListeRappel(0)
-            print("listerappel créee")
             chaine = self.listToString(l.getListe())
-            print("AAAA"+str(l.getListe()))
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelHebdomadaire":
             l = ListeRappel(1)
@@ -79,8 +76,10 @@ class Serveur:
             chaine = self.listToString(l.getListe())
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappel":
-            l = ListeRappel(2)
-            #r  = l.getRappel()
+            argument = Outils.recupereBaliseAuto(message,"a",1)
+            l = ListeRappel(int(Outils.recupereBaliseAuto(argument,"Type",1)))
+            r  = l.getRappelFichier(Outils.recupereBaliseAuto(argument,"Nom",1))
+            chaine = r.toString()
 
         print("messageRecu2")
         chaine = chaine.replace("\n","[n]")

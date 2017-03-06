@@ -21,6 +21,38 @@ class Rappel :
 		# Dans la config, on met l'endroit ou les modules sont stockés, le nom de tous les modules, l'endroit ou les réveils sont stockés (chaque type)
 		self.conf.openConfig()
 
+
+	def toString(self):
+		# Donne  une chaine de caractère pour representer le rappel
+		chaine = ""
+
+		chaine += Outils.constitueBalise("Type",str(type))+"\n"
+		nb = len(self.listeDateHeure)
+		for i in range (0,nb):
+			chaine+= Outils.constitueBalise("ListeDateHeure",str(self.listeDateHeure[i]))+"\n"
+
+		chaine += "\n\n"
+		chaine3 = chaine
+		#print("RETURN PASSE")
+		for i in range(0,len(self.listeCommandePart1)):
+			chaine2 = Outils.constitueBalise("Nom",self.listeCommandePart1[i])
+			for i2 in range(0,len(self.listeArgumentPart1[i])):
+				chaine2+= Outils.constitueBalise("Argument", self.listeArgumentPart1[i][i2])
+			chaine += Outils.constitueBalise("Module",chaine2)+"\n"
+		chaine3 += Outils.constitueBalise("Part 1",chaine)+"\n\n"
+		#print("chaine3 ; "+chaine3)
+		chaine = "\n"
+		for i in range(0,len(self.listeCommandePart2)):
+			chaine2 = Outils.constitueBalise("Nom",self.listeCommandePart2[i])
+			for i2 in range(0,len(self.listeArgumentPart2[i])):
+				chaine2+= Outils.constitueBalise("Argument", self.listeArgumentPart2[i][i2])
+			chaine += Outils.constitueBalise("Module",chaine2)+"\n"
+
+		chaine3 += Outils.constitueBalise("Part 2",chaine)+"\n"
+
+		return chaine3
+
+
 	def save(self):
 		# Sauvegarde le rappel
 		#print("LOL"+self.getEndroit())

@@ -71,6 +71,12 @@ class ListeRappel:
 		listeDateHeure =  nom.split("_")
 		return self.getRappelFromList(listeDateHeure)
 
+	def getRappelFichier(self, nom):
+		# return un rappel avec le nom du fichier demander
+		nom = nom.replace(".f","")
+		listeDateHeure =  nom.split("_")
+		return self.getRappelFromList(listeDateHeure)
+
 	def getRappelListe(self, id, liste ):
 		# return un rappel avec l'id du fichier demander
 		nom = liste[id]
