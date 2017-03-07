@@ -33,9 +33,9 @@ class Serveur:
             r = Rappel()
             r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",1),True)
             endroit = r.getEndroit()
-            print("Pas de bras pas de choco : +"+endroit+": type ;"+str(r.typeRappel))
+            #print("Pas de bras pas de choco : +"+endroit+": type ;"+str(r.typeRappel))
             if (endroit == ""):
-                return "6" # Modification de rappel pas réussi
+                return self.createChaine("6") # Modification de rappel pas réussi
             nomAjout = endroit
             endroit = r.createPath(endroit)
 
@@ -52,18 +52,18 @@ class Serveur:
 
             if (nom != nomAjout):
                 if Outils.testPresence(endroit):
-                    return "6"# Modification de rappel pas réussi
+                    chaine = "6"# Modification de rappel pas réussi
                 if (l.delRappelFichier(nom)):
                     r.save()
-                    return "5"# Modification de rappel réussie
+                    chaine =  "5"# Modification de rappel réussie
                 else:
-                    return "6"# Modification de rappel pas réussi
+                    chaine = "6"# Modification de rappel pas réussi
             else:
                 if (l.delRappelFichier(nom)):
                     r.save()
-                    return "5"# Modification de rappel réussie
+                    chaine = "5"# Modification de rappel réussie
                 else:
-                    return "6"# Modification de rappel pas réussi
+                    chaine = "6"# Modification de rappel pas réussi
 
 
 
@@ -100,10 +100,13 @@ class Serveur:
             chaine = r.toString()
 
         print("messageRecu2")
+        
+        return self.createChaine(chaine)
+
+    def createChaine(self,chaine):
         chaine = chaine.replace("\n","[n]")
         chaine +="\n"
         return chaine
-
 
     def listToString(self,liste):
         # Fonction qui renvoie une chaine a partir d'une liste ou chaque item est dans la balise <i>
