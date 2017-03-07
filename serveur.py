@@ -40,9 +40,15 @@ class Serveur:
             if not Outils.testPresence(endroit):
                 return "6" # Modification de rappel pas réussi
 
-            supression = Outils.recupereBaliseAuto(argument,"Supression",1)
+            supression = Outils.recupereBaliseAuto(argument,"Suppression",1)
             l = ListeRappel(int(Outils.recupereBaliseAuto(supression,"Type",1)))
-            if (l.delRappelFichier(Outils.recupereBaliseAuto(supression,"Nom",1))):
+
+            nom = Outils.recupereBaliseAuto(supression,"ListeDateHeureAncien",1)
+            for i in range(1,Outils.compter(supression,"<ListeDateHeureAncien>")):
+                nom += "_"+Outils.recupereBaliseAuto(supression,"ListeDateHeureAncien",i+1)
+            nom += ".f"
+            if (l.delRappelFichier(nom)):
+                r.save()
                 chaine = "5" # Modification de rappel réussie
             else :
                 chaine = "7" # Modification de rappel pas réussi mais la supression a été réalisée
