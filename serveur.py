@@ -12,7 +12,7 @@ class Serveur:
     def messageRecu(self,message):
         # Recupere la chaine et renvoie la réponsee
         print("messageRecu")
-        chaine = ""
+        chaine = "-1"
         if Outils.recupereBaliseAuto(message,"c",1) == "connexion":
             chaine = "0"
 
@@ -33,12 +33,14 @@ class Serveur:
             r = Rappel()
             r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",1),True)
             endroit = r.getEndroit()
+            print("Pas de bras pas de choco : +"+endroit+": type ;"+str(r.typeRappel))
             if (endroit == ""):
                 return "6" # Modification de rappel pas réussi
+            nomAjout = endroit
             endroit = r.createPath(endroit)
 
-            if not Outils.testPresence(endroit):
-                return "6" # Modification de rappel pas réussi
+
+           
 
             supression = Outils.recupereBaliseAuto(argument,"Suppression",1)
             l = ListeRappel(int(Outils.recupereBaliseAuto(supression,"Type",1)))
@@ -47,11 +49,21 @@ class Serveur:
             for i in range(1,Outils.compter(supression,"<ListeDateHeureAncien>")):
                 nom += "_"+Outils.recupereBaliseAuto(supression,"ListeDateHeureAncien",i+1)
             nom += ".f"
-            if (l.delRappelFichier(nom)):
-                r.save()
-                chaine = "5" # Modification de rappel réussie
-            else :
-                chaine = "7" # Modification de rappel pas réussi mais la supression a été réalisée
+
+            if (nom != nomAjout):
+                if Outils.testPresence(endroit):
+                    return "6"# Modification de rappel pas réussi
+                if (l.delRappelFichier(nom)):
+                    r.save()
+                    return "5"# Modification de rappel réussie
+                else:
+                    return "6"# Modification de rappel pas réussi
+            else:
+                if (l.delRappelFichier(nom)):
+                    r.save()
+                    return "5"# Modification de rappel réussie
+                else:
+                    return "6"# Modification de rappel pas réussi
 
 
 
