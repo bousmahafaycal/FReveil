@@ -25,14 +25,13 @@ class Rappel :
 	def toString(self):
 		# Donne  une chaine de caractère pour representer le rappel
 		chaine = ""
-
-		chaine += Outils.constitueBalise("Type",str(type))+"\n"
+		chaine3 = ""
+		chaine3 += Outils.constitueBalise("Type",str(self.typeRappel))+"\n"
 		nb = len(self.listeDateHeure)
 		for i in range (0,nb):
-			chaine+= Outils.constitueBalise("ListeDateHeure",str(self.listeDateHeure[i]))+"\n"
+			chaine3+= Outils.constitueBalise("ListeDateHeure",str(self.listeDateHeure[i]))+"\n"
 
-		chaine += "\n\n"
-		chaine3 = chaine
+		chaine3 += "\n\n"
 		#print("RETURN PASSE")
 		for i in range(0,len(self.listeCommandePart1)):
 			chaine2 = Outils.constitueBalise("Nom",self.listeCommandePart1[i])
