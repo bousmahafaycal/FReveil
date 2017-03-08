@@ -99,6 +99,40 @@ class Serveur:
             r  = l.getRappelFichier(Outils.recupereBaliseAuto(argument,"Nom",1))
             chaine = r.toString()
 
+        elif Outils.recupereBaliseAuto(message,"c",1) == "getBouton":
+            c = Config()
+            if c.bouton:
+                chaine = "7" # Bouton appuyé
+            else :
+                chaine = "8" # Bouton pas appuyé
+
+        elif Outils.recupereBaliseAuto(message,"c",1) == "getPresence":
+            c = Config()
+            if c.presence:
+                chaine = "9" # Present
+            else :
+                chaine = "10" # Pas présent
+
+        elif Outils.recupereBaliseAuto(message,"c",1) == "setBouton":
+            c = Config()
+            if Outils.recupereBaliseAuto(message,"a",1) == "1":
+                c.setBouton(True)
+            else :
+                c.setBouton(False)
+            chaine = "11" # setBouton terminé avec succès
+
+        elif Outils.recupereBaliseAuto(message,"c",1) == "setPresence":
+            c = Config()
+            if Outils.recupereBaliseAuto(message,"a",1) == "1":
+                c.setPresence(True)
+            else :
+                c.setPresence(False)
+            chaine = "12" # setPresence terminée avec succès
+
+
+
+
+
         print("messageRecu2")
         
         return self.createChaine(chaine)
