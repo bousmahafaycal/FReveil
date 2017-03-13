@@ -97,7 +97,7 @@ class Reveil:
 		#  Permet d'oubrir le reveil donné en parametres et d'y lancer les fonctions
 		r = Rappel()
 		r.openRappel(type,listeDateHeure)
-		#print("OuvreReveil")
+		print("OuvreReveil")
 		# GESTION DE LA PARTIE 1 A FAIRE
 		continuer = True
 		while continuer:
@@ -145,7 +145,7 @@ class Reveil:
 		#input("appuyez pour part2")
 		for i in range(0,len(r.listeCommandePart2)):
 			dossierModule = self.conf.getDossierModule(r.listeCommandePart2[i])
-			#print("Dossier : "+dossierModule)
+			print("Dossier : "+dossierModule)
 			if dossierModule != "":
 				#print("arguments : "+str(r.listeArgumentPart2[i]))
 				#module = __import__(dossierModule.replace(os.sep,"."),fromlist=[None])  # I don't understant that fromlist
