@@ -11,8 +11,8 @@ Grace aux technologies utilisées, il peut donner des informations à l'oral ou 
 
 
 Chaque rappel est constitué de 2 parties :
-- une pemière ou les modules appelés lors de cette partie sont lancés en boucle jusqu'à ce que l'utilisateur "appuie" sur le bouton
-- une seconde ou les modules sont lancés après que l'utilisateur "ait appuyé" sur le bouton
+- une pemière où les modules appelés lors de cette partie sont lancés en boucle jusqu'à ce que l'utilisateur "appuie" sur le bouton
+- une seconde où les modules sont lancés après que l'utilisateur "ait appuyé" sur le bouton
 
 
 Un appui sur le bouton n'est pas forcément physique. On peut simuler l'appui sur le bouton via l'application Android ou via l'interface
@@ -32,10 +32,8 @@ Mes parents souhaitant que je me lève seul, il me fallait trouver une solution 
 
 
 
-Comptant me faire accepter à la licence CDAISI de Valenciennes, et ayant lu sur internet qu'ils recrutaient 
-des personnes sachant "bricoler" de leur coté. 
-Lors des vidéos de présentation,  ils montrent qu'ils utilisent l'Arduino.
-J'ai donc décider de montrer certaines de mes compétences informatiques via ce projet.
+Souhaitant me faire accepter à la licence CDAISI de Valenciennes, et ayant lu sur internet qu'ils recrutaient 
+des personnes sachant "bricoler" de leur coté, j'ai  décidé de montrer certaines de mes compétences informatiques via ce projet.
 
 
 Me rappelant que j'avais déja réaliser un réveil pour mon ancien assistant virtuel (pas encore mit sur github), j'ai décidé de recréer
@@ -48,8 +46,8 @@ Via un bouton physique permettant d'arreter la phase ou le réveil sonne en bouc
 
 De plus, il pourra être rapidement améliorable par des développeurs tiers. 
 Pour cela, un système de modules a été réalisé. 
-Chaque développeur peut créer son propre module (via le FReveilModuleCreator : <https://github.com/bousmahafaycal/FReveilModuleCreator>).
-On peut ensuite facilement ajouter son module au FReveil.
+Chaque développeur peut créer son propre module (via le FReveilModuleCreator : <https://github.com/bousmahafaycal/FReveilModuleCreator>). 
+On peut ensuite facilement ajouter son propre module au FReveil (un tuto est disponible ci-dessous dans la section Tester le FReveil).
 
 
 ## Application Android
@@ -59,6 +57,18 @@ Une application Android a été développé afun de pouvoir gérer le FReveil. E
 ## Arduino
 Le FReveil gérant l'éléctronique, suivez le lien ci-dessous pour voir comment la mettre en place :  
 <https://github.com/bousmahafaycal/FReveilArduino>
+
+## Les modules
+Voici une liste des modules existant (mise à jour du 14/03/2017) :
+- FReveil_synthese : <https://github.com/bousmahafaycal/FReveil_synthese>
+- FReveil_synthese_heure : <https://github.com/bousmahafaycal/FReveil_synthese_heure>
+- FReveil_synthese_meteo : <https://github.com/bousmahafaycal/FReveil_synthese_meteo>
+- FReveil_musique : <https://github.com/bousmahafaycal/FReveil_musique>
+- FReveil_citation : <https://github.com/bousmahafaycal/FReveil_citation> 
+
+
+Si vous souhaitez créer votre propre module, je vous invite à consulter le lien suivant : 
+<https://github.com/bousmahafaycal/FReveilModuleCreator>).
 
 ## Tester le FReveil
 Dans un premier temps, vous devez cloner le projet sur votre disque dur.
@@ -70,6 +80,8 @@ Les modules douvent obligatoirement être créer via le FReveilModuleCreator :
 
 
 Ensuite, vous devez lancer l'interface de configuration avec la commande suivante :  
+
+
 `
 python3 interface_config.py
 `
@@ -78,7 +90,22 @@ python3 interface_config.py
 Enfin, laissez vous guider par les instructions afficher à l'écran.
 
 ### Lancer le FReveil
-Pour lancer le FReveil
+Pour lancer le FReveil, il suffit de lancer la commande suivante : 
+
+
+`
+python3 lancement.py
+`
+
+### Ajouter un rappel
+Pour ajouter un rappel, vous pouvez passer par l'application Android (<https://github.com/bousmahafaycal/FReveilAndroid>) ou bien utiliser l'interface en console via la commande suivante : 
+
+
+`
+python3 interface_reveil.py
+`
+
+Enfin, laissez vous guider par les instructions afficher à l'écran.
 
 
 ## A améliorer
