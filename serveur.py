@@ -19,7 +19,10 @@ class Serveur:
         elif Outils.recupereBaliseAuto(message,"c",1) == "ajoutRappel":
             r = Rappel()
             #print("rappel")
-            r.openChaine(Outils.recupereBaliseAuto(message,"a",1))
+            if Outils.recupereBaliseAuto(argument,"Ajout",1) == "":
+                r.openChaine(Outils.recupereBaliseAuto(message,"a",False))
+            else:
+                r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",False))
             #print("rappel2")
             reussi = r.save()
             if (reussi):
@@ -31,7 +34,7 @@ class Serveur:
         elif Outils.recupereBaliseAuto(message,"c",1) == "modifieRappel":
             argument = Outils.recupereBaliseAuto(message,"a",1)
             r = Rappel()
-            r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",1),True)
+            r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",1),False)
             endroit = r.getEndroit()
             #print("Pas de bras pas de choco : +"+endroit+": type ;"+str(r.typeRappel))
             if (endroit == ""):
