@@ -81,8 +81,8 @@ class Serveur:
             
         
         elif Outils.recupereBaliseAuto(message,"c",1) == "getCommande":
-			print("getCommande detecté")
 			c = Config()
+			print("getCommande detecté")
 			liste = []
 			print("liste")
 			for i in range (len(c.listeModule)):
