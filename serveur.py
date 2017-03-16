@@ -79,7 +79,10 @@ class Serveur:
         
         elif Outils.recupereBaliseAuto(message,"c",1) == "getCommande":
             c= Config()
-            chaine = self.listToString(c.listeModule)
+            liste = []
+            for i in range (len(c.listeModule)):
+                liste.append(c.listeModule[0])
+            chaine = self.listToString(c.liste)
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelJournalier":
             l = ListeRappel(0)
