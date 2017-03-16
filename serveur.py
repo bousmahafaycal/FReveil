@@ -153,7 +153,7 @@ class Serveur:
 
     def listToString(self,liste):
         # Fonction qui renvoie une chaine a partir d'une liste ou chaque item est dans la balise <i>
-        chaine = ""
+        chaine = "-2"
         print("createString")
         for i in range(len(liste)):
             chaine += Outils.constitueBalise("i",liste[i])
