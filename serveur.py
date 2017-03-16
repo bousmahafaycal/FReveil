@@ -88,7 +88,7 @@ class Serveur:
             for i in range (len(c.listeModule)):
                 liste.append(c.listeModule[i][0])
             print ("liste : "+str(liste))
-            chaine = self.listToString(c.liste)
+            chaine = self.listToString(liste)
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "getRappelJournalier":
             l = ListeRappel(0)
