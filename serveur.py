@@ -23,9 +23,9 @@ class Serveur:
             #print("rappel")
 
             if Outils.compter(argument,"Ajout") == 0:
-                r.openChaine(Outils.recupereBaliseAuto(message,"a",False))
+                r.openChaine(argument,False)
             else:
-                r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",False))
+                r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",1),False)
             #print("rappel2")
             reussi = r.save()
             if (reussi):
