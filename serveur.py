@@ -13,12 +13,15 @@ class Serveur:
         # Recupere la chaine et renvoie la réponsee
         print("messageRecu")
         chaine = "-1"
+        argument = Outils.recupereBaliseAuto(message,"a",1)
+        
         if Outils.recupereBaliseAuto(message,"c",1) == "connexion":
             chaine = "0"
 
         elif Outils.recupereBaliseAuto(message,"c",1) == "ajoutRappel":
             r = Rappel()
             #print("rappel")
+
             if Outils.recupereBaliseAuto(argument,"Ajout",1) == "":
                 r.openChaine(Outils.recupereBaliseAuto(message,"a",False))
             else:
