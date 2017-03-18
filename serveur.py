@@ -14,7 +14,7 @@ class Serveur:
         print("messageRecu")
         chaine = "-1"
         argument = Outils.recupereBaliseAuto(message,"a",1)
-        
+
         if Outils.recupereBaliseAuto(message,"c",1) == "connexion":
             chaine = "0"
 
@@ -22,7 +22,7 @@ class Serveur:
             r = Rappel()
             #print("rappel")
 
-            if Outils.recupereBaliseAuto(argument,"Ajout",1) == "":
+            if Outils.compter(argument,"Ajout") == 0:
                 r.openChaine(Outils.recupereBaliseAuto(message,"a",False))
             else:
                 r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",False))
