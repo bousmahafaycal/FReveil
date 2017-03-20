@@ -39,7 +39,6 @@ class Serveur:
             r = Rappel()
             r.openChaine(Outils.recupereBaliseAuto(argument,"Ajout",1),False)
             endroit = r.getEndroit()
-            #print("Pas de bras pas de choco : +"+endroit+": type ;"+str(r.typeRappel))
             if (endroit == ""):
                 return self.createChaine("6") # Modification de rappel pas réussi
             nomAjout = endroit
