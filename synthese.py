@@ -42,7 +42,21 @@ class Synthese :
 		self.synthese(chaine);
 
 	def syntheseDate (self):
-		pass;
+		temps_tab = time.localtime()
+		chaine = "Nous sommes le "
+		jour = ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"]
+		mois = ["janvier","fevrier","mars","avril","mai","juin","juillet","aout","septembre","octobre","novembre","decembre"]
+		chaine += jour[temps_tab[6]]+" "
+		nb = temps_tab[2]
+		if nb == 1:
+			chaine += "premier "
+		else :
+			chaine += str(nb)+" "
+		chaine += mois[temps_tab[1]-1] + " "
+		chaine += str(temps_tab[0])+"."
+
+		
+		self.synthese(chaine)
 
 	def syntheseVdm (self):
 		pass;
