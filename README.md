@@ -31,13 +31,7 @@ C'est un projet personnel que j'ai réalisé seul.
 Mes parents souhaitant que je me lève seul, il me fallait trouver une solution pour me réveiller.
 
 
-
-Souhaitant me faire accepter à la licence CDAISI de Valenciennes, et ayant lu sur internet qu'ils recrutaient 
-des personnes sachant "bricoler" de leur coté, j'ai  décidé de montrer certaines de mes compétences informatiques via ce projet.
-
-
-Me rappelant que j'avais déja réaliser un réveil pour mon ancien assistant virtuel (pas encore mit sur github), j'ai décidé de recréer
-un réveil. Cette fois-ci, il devrait toutefois être de meilleur qualité. 
+Me rappelant que j'avais déja réaliser un réveil pour mon ancien assistant virtuel (pas encore mit sur github), j'ai décidé de recréer un réveil. Cette fois-ci, il devrait toutefois être de meilleur qualité. 
 J'ai alors tout recommencer depuis le début et je l'ai recoder plus "proprement". 
 Cette fois, il peut gérer de l'éléctronique. 
 En effet, dans l'ancien réveil, il fallait que je me connecte chaque matin en ssh pour pouvoir l'arreter. 
