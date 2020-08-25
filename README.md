@@ -1,5 +1,5 @@
 # FReveil
-Ce projet a été développé par Fayçal Bousmaha.
+Ce projet a été développé par Fayçal Bousmaha. Fait pendant mon temps libre lors de ma deuxième année de licence informatique.
 
 
 ## Introduction
